@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createCompanyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Organization",
+  ],
+  "_key": "hubspot_company:84106264 ",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "companyId": 84106264,
+        "isDeleted": false,
+        "portalId": 21406264,
+        "properties": Object {
+          "domain": Object {
+            "value": "awesomecompanydomain.tld",
+          },
+          "name": Object {
+            "value": "Awesome company",
+          },
+          "website": Object {
+            "value": "awesomecompanydomain.tld",
+          },
+        },
+      },
+    },
+  ],
+  "_type": "hubspot_company",
+  "archived": false,
+  "city": undefined,
+  "createdOn": undefined,
+  "displayName": "Awesome company",
+  "domain": "awesomecompanydomain.tld",
+  "host": "awesomecompanydomain.tld",
+  "id": "84106264",
+  "industry": undefined,
+  "name": "Awesome company",
+  "ownerId": undefined,
+  "portalId": 21406264,
+  "public": false,
+  "updatedOn": undefined,
+}
+`;
