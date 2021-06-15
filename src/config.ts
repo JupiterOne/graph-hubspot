@@ -24,6 +24,10 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
   apiKey: {
     type: 'string',
   },
+  apiBaseUrl: {
+    type: 'string',
+    mask: true,
+  },
 };
 
 /**
@@ -31,15 +35,15 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  * same properties defined by `instanceConfigFields`.
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
-  /*
-   * The hubspot app id. Used in certain requests
-   */
-  appId: string;
-
   /**
    * The provider API client secret used to authenticate requests.
    */
   apiKey: string;
+
+  /**
+   * Hubspot API base url
+   */
+  apiBaseUrl: string;
 }
 
 export async function validateInvocation(

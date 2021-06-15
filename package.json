@@ -32,5 +32,9 @@
     "@jupiterone/integration-sdk-core": "^6.0.0",
     "@jupiterone/integration-sdk-dev-tools": "^6.0.0",
     "@jupiterone/integration-sdk-testing": "^6.0.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "qs": "^6.10.1"
   }
 }

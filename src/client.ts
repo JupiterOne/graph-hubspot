@@ -1,7 +1,6 @@
-import http from 'http';
-
 import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
-
+import fetch from 'node-fetch';
+import qs from 'qs';
 import { IntegrationConfig } from './config';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
@@ -44,34 +43,20 @@ export class APIClient {
   constructor(readonly config: IntegrationConfig) {}
 
   public async verifyAuthentication(): Promise<void> {
-    // TODO make the most light-weight request possible to validate
-    // authentication works with the provided credentials, throw an err if
-    // authentication fails
-    const request = new Promise<void>((resolve, reject) => {
-      http.get(
-        {
-          hostname: 'localhost',
-          port: 443,
-          path: '/api/v1/some/endpoint?limit=1',
-          agent: false,
-          timeout: 10,
-        },
-        (res) => {
-          if (res.statusCode !== 200) {
-            reject(new Error('Provider authentication failed'));
-          } else {
-            resolve();
-          }
-        },
-      );
-    });
-
     try {
-      await request;
+      const res = await fetch(
+        `${this.config.apiBaseUrl}/crm/v3/properties/contact?` +
+          qs.stringify({
+            hapikey: this.config.apiKey,
+          }),
+      );
+      if (res.status !== 200) {
+        throw new Error('Provider authentication failed');
+      }
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: 'https://localhost/api/v1/some/endpoint?limit=1',
+        endpoint: `${this.config.apiBaseUrl}/crm/v3/properties/contact`,
         status: err.status,
         statusText: err.statusText,
       });
