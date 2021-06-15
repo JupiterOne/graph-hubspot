@@ -31,6 +31,11 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  * same properties defined by `instanceConfigFields`.
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
+  /*
+   * The hubspot app id. Used in certain requests
+   */
+  appId: string;
+
   /**
    * The provider API client secret used to authenticate requests.
    */
