@@ -36,6 +36,9 @@ export default class Hubspot {
         results.push(...data?.results);
       }
     } while (data?.results && data?.paging?.next?.after);
+    if (data.status === 'error' && data.category === 'INVALID_AUTHENTICATION') {
+      throw new Error('Invalid authentication');
+    }
     return results || data;
   }
 }
@@ -44,5 +47,5 @@ export interface HubspotRequestConfig {
   /**
    * Url Query params
    */
-  param?: any;
+  params?: any;
 }

@@ -1,4 +1,7 @@
-import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthenticationError,
+} from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 import Hubspot from './hubspot';
 import { Owner } from './types';
@@ -54,7 +57,7 @@ export class APIClient {
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: `${this.config.apiBaseUrl}/crm/v3/properties/contact`,
+        endpoint: `/crm/v3/properties/contact`,
         status: err.status,
         statusText: err.statusText,
       });
@@ -62,9 +65,18 @@ export class APIClient {
   }
 
   public async iterateOwners(iteratee: ResourceIteratee<Owner>) {
-    const owners = await this.hubspot.get('/crm/v3/owners');
-    for (const owner of owners) {
-      await iteratee(owner);
+    try {
+      const owners = await this.hubspot.get('/crm/v3/owners');
+      for (const owner of owners) {
+        await iteratee(owner);
+      }
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: err,
+        endpoint: `/crm/v3/owners`,
+        status: err.status,
+        statusText: err.statusText,
+      });
     }
   }
 

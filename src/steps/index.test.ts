@@ -1,7 +1,11 @@
+import {
+  createIntegrationEntity,
+  IntegrationStepExecutionContext,
+} from '@jupiterone/integration-sdk-core';
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { integrationConfig } from '../../test/config';
 import { IntegrationConfig } from '../config';
-import { fetchOwners } from './owner';
+import * as owner from './owner';
 
 test('should collect data', async () => {
   const context = createMockStepExecutionContext<IntegrationConfig>({
@@ -11,7 +15,37 @@ test('should collect data', async () => {
   // Simulates dependency graph execution.
   // See https://github.com/JupiterOne/sdk/issues/262.
   // await fetchAccountDetails(context);
-  await fetchOwners(context);
+  jest
+    .spyOn(owner, 'fetchOwners')
+    .mockImplementation(
+      async ({
+        jobState,
+      }: IntegrationStepExecutionContext<IntegrationConfig>) => {
+        await jobState.addEntity(
+          createIntegrationEntity({
+            entityData: {
+              source: {
+                id: 'owner-1',
+              },
+              assign: {
+                _key: `hubspot-owner-owner-1`,
+                _type: 'acme_user',
+                _class: 'User',
+                // This is a custom property that is not a part of the data model class
+                // hierarchy. See: https://github.com/JupiterOne/data-model/blob/master/src/schemas/User.json
+                firstName: 'Owner',
+                // lastName: owner.lastName,
+                name: `Owner One`,
+                email: 'ownerone@company.tld',
+                username: 'ownerone@company.tld',
+              },
+            },
+          }),
+        );
+      },
+    );
+
+  await owner.fetchOwners(context);
 
   // Review snapshot, failure is a regression
   expect({
