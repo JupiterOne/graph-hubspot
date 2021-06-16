@@ -11,15 +11,32 @@ export default class Hubspot {
     return this.query(resource);
   }
 
-  private query(resource: string, params?: any, init?: RequestInit) {
-    return fetch(
-      `${this.apiBaseUrl}${resource}?` +
-        qs.stringify({
-          hapikey: this.hapikey,
-          ...params,
-        }),
-      init,
-    );
+  private async query(resource: string, params?: any, init?: RequestInit) {
+    const pagination: any = {};
+    const exec = () =>
+      fetch(
+        `${this.apiBaseUrl}${resource}?` +
+          qs.stringify({
+            hapikey: this.hapikey,
+            ...params,
+            ...pagination,
+          }),
+        init,
+      );
+    let data: any = null;
+    let results: any[] | undefined = undefined;
+    do {
+      const res = await exec();
+      data = await res.json();
+      pagination.after = data?.paging?.next?.after;
+      if (data?.results) {
+        if (!results) {
+          results = [];
+        }
+        results.push(...data?.results);
+      }
+    } while (data?.results && data?.paging?.next?.after);
+    return results || data;
   }
 }
 

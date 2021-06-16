@@ -12,5 +12,7 @@ const DEFAULT_API_URL = 'https://api.hubapi.com';
 
 export const integrationConfig: IntegrationConfig = {
   apiKey: process.env.API_KEY || DEFAULT_API_KEY,
-  apiBaseUrl: process.env.CLIENT_ID || DEFAULT_API_URL,
+  apiBaseUrl: process.env.API_BASE_URL || DEFAULT_API_URL,
 };
+
+console.log('env', integrationConfig);

@@ -1,6 +1,5 @@
-import { accountSteps } from './account';
-import { accessSteps } from './access';
+import { ownerSteps } from './owner';
 
-const integrationSteps = [...accountSteps, ...accessSteps];
+const integrationSteps = [...ownerSteps];
 
 export { integrationSteps };

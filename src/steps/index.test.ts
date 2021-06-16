@@ -1,9 +1,7 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-
-import { IntegrationConfig } from '../config';
-import { fetchGroups, fetchUsers } from './access';
-import { fetchAccountDetails } from './account';
 import { integrationConfig } from '../../test/config';
+import { IntegrationConfig } from '../config';
+import { fetchOwners } from './owner';
 
 test('should collect data', async () => {
   const context = createMockStepExecutionContext<IntegrationConfig>({
@@ -12,9 +10,8 @@ test('should collect data', async () => {
 
   // Simulates dependency graph execution.
   // See https://github.com/JupiterOne/sdk/issues/262.
-  await fetchAccountDetails(context);
-  await fetchUsers(context);
-  await fetchGroups(context);
+  // await fetchAccountDetails(context);
+  await fetchOwners(context);
 
   // Review snapshot, failure is a regression
   expect({

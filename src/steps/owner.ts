@@ -3,49 +3,47 @@ import {
   IntegrationStep,
   IntegrationStepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
+import { createAPIClient } from '../client';
 import { IntegrationConfig } from '../config';
 
-export const ACCOUNT_ENTITY_KEY = 'entity:account';
-
-export async function fetchAccountDetails({
+export async function fetchOwners({
   jobState,
+  instance,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const accountEntity = await jobState.addEntity(
-    createIntegrationEntity({
-      entityData: {
-        source: {
-          id: 'acme-unique-account-id',
-          name: 'Example Co. Acme Account',
+  const apiClient = createAPIClient(instance.config);
+  await apiClient.iterateOwners(async (owner) => {
+    await jobState.addEntity(
+      createIntegrationEntity({
+        entityData: {
+          source: owner,
+          assign: {
+            _key: 'acme-unique-account-id',
+            _type: 'acme_account',
+            _class: 'Account',
+            mfaEnabled: true,
+            // This is a custom property that is not a part of the data model class
+            // hierarchy. See: https://github.com/JupiterOne/data-model/blob/master/src/schemas/Account.json
+            manager: 'Manager Name',
+          },
         },
-        assign: {
-          _key: 'acme-unique-account-id',
-          _type: 'acme_account',
-          _class: 'Account',
-          mfaEnabled: true,
-          // This is a custom property that is not a part of the data model class
-          // hierarchy. See: https://github.com/JupiterOne/data-model/blob/master/src/schemas/Account.json
-          manager: 'Manager Name',
-        },
-      },
-    }),
-  );
-
-  await jobState.setData(ACCOUNT_ENTITY_KEY, accountEntity);
+      }),
+    );
+  });
 }
 
 export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: 'fetch-owners',
-    name: 'Fetch Account Details',
+    name: 'Fetch Owners',
     entities: [
       {
-        resourceName: 'Account',
+        resourceName: 'Owner',
         _type: 'acme_account',
         _class: 'Account',
       },
     ],
     relationships: [],
     dependsOn: [],
-    executionHandler: fetchAccountDetails,
+    executionHandler: fetchOwners,
   },
 ];
