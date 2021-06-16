@@ -63,7 +63,6 @@ export class APIClient {
 
   public async iterateOwners(iteratee: ResourceIteratee<Owner>) {
     const owners = await this.hubspot.get('/crm/v3/owners');
-    console.log('OW', owners);
     for (const owner of owners) {
       await iteratee(owner);
     }

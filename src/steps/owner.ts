@@ -15,15 +15,20 @@ export async function fetchOwners({
     await jobState.addEntity(
       createIntegrationEntity({
         entityData: {
-          source: owner,
+          source: {
+            id: owner.id,
+          },
           assign: {
-            _key: 'acme-unique-account-id',
-            _type: 'acme_account',
-            _class: 'Account',
-            mfaEnabled: true,
+            _key: `hubspot-owner-${owner.id}`,
+            _type: 'acme_user',
+            _class: 'User',
             // This is a custom property that is not a part of the data model class
-            // hierarchy. See: https://github.com/JupiterOne/data-model/blob/master/src/schemas/Account.json
-            manager: 'Manager Name',
+            // hierarchy. See: https://github.com/JupiterOne/data-model/blob/master/src/schemas/User.json
+            firstName: owner.firstName,
+            // lastName: owner.lastName,
+            name: `${owner.firstName} ${owner.lastName}`,
+            email: owner.email,
+            username: owner.email,
           },
         },
       }),
@@ -38,8 +43,8 @@ export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Owner',
-        _type: 'acme_account',
-        _class: 'Account',
+        _type: 'acme_user',
+        _class: 'User',
       },
     ],
     relationships: [],

@@ -98,7 +98,7 @@ The following entities are created:
 
 | Resources | Entity `_type` | Entity `_class` |
 | --------- | -------------- | --------------- |
-| Owner     | `acme_account` | `Account`       |
+| Owner     | `acme_user`    | `User`          |
 
 <!--
 ********************************************************************************

@@ -22,31 +22,11 @@ test('should collect data', async () => {
     encounteredTypes: context.jobState.encounteredTypes,
   }).toMatchSnapshot();
 
-  const accounts = context.jobState.collectedEntities.filter((e) =>
-    e._class.includes('Account'),
-  );
-  expect(accounts.length).toBeGreaterThan(0);
-  expect(accounts).toMatchGraphObjectSchema({
-    _class: ['Account'],
-    schema: {
-      additionalProperties: false,
-      properties: {
-        _type: { const: 'acme_account' },
-        manager: { type: 'string' },
-        _rawData: {
-          type: 'array',
-          items: { type: 'object' },
-        },
-      },
-      required: ['manager'],
-    },
-  });
-
-  const users = context.jobState.collectedEntities.filter((e) =>
+  const owners = context.jobState.collectedEntities.filter((e) =>
     e._class.includes('User'),
   );
-  expect(users.length).toBeGreaterThan(0);
-  expect(users).toMatchGraphObjectSchema({
+  expect(owners.length).toBeGreaterThan(0);
+  expect(owners).toMatchGraphObjectSchema({
     _class: ['User'],
     schema: {
       additionalProperties: false,
@@ -59,30 +39,6 @@ test('should collect data', async () => {
         },
       },
       required: ['firstName'],
-    },
-  });
-
-  const userGroups = context.jobState.collectedEntities.filter((e) =>
-    e._class.includes('UserGroup'),
-  );
-  expect(userGroups.length).toBeGreaterThan(0);
-  expect(userGroups).toMatchGraphObjectSchema({
-    _class: ['UserGroup'],
-    schema: {
-      additionalProperties: false,
-      properties: {
-        _type: { const: 'acme_group' },
-        logoLink: {
-          type: 'string',
-          // Validate that the `logoLink` property has a URL format
-          format: 'url',
-        },
-        _rawData: {
-          type: 'array',
-          items: { type: 'object' },
-        },
-      },
-      required: ['logoLink'],
     },
   });
 });
