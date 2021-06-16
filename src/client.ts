@@ -1,7 +1,6 @@
 import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
-import fetch from 'node-fetch';
-import qs from 'qs';
 import { IntegrationConfig } from './config';
+import Hubspot from './hubspot';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -40,16 +39,14 @@ export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
  * resources.
  */
 export class APIClient {
-  constructor(readonly config: IntegrationConfig) {}
+  readonly hubspot: Hubspot;
+  constructor(readonly config: IntegrationConfig) {
+    this.hubspot = new Hubspot(config.apiBaseUrl, config.apiKey);
+  }
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      const res = await fetch(
-        `${this.config.apiBaseUrl}/crm/v3/properties/contact?` +
-          qs.stringify({
-            hapikey: this.config.apiKey,
-          }),
-      );
+      const res = await this.hubspot.get('/crm/v3/properties/contact');
       if (res.status !== 200) {
         throw new Error('Provider authentication failed');
       }
