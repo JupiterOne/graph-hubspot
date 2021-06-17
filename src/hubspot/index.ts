@@ -4,7 +4,7 @@ import qs from 'qs';
 export default class Hubspot {
   constructor(
     private readonly apiBaseUrl: string,
-    private readonly hapikey: string,
+    private readonly apiKey: string,
   ) {}
 
   get(resource: string, config?: HubspotRequestConfig) {
@@ -17,7 +17,7 @@ export default class Hubspot {
       fetch(
         `${this.apiBaseUrl}${resource}?` +
           qs.stringify({
-            hapikey: this.hapikey,
+            hapikey: this.apiKey,
             ...params,
             ...pagination,
           }),
