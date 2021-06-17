@@ -1,13 +1,13 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-import { createIntegrationConfig } from '../../test/config';
-import { IntegrationConfig } from '../config';
-import * as owner from './owner';
+import { createIntegrationConfig } from '../../../test/config';
+import { IntegrationConfig } from '../../config';
+import * as owner from '../owner';
 
 beforeAll(() => {
   dotenv.config({
-    path: path.join(__dirname, '../../.env'),
+    path: path.join(__dirname, '../../../.env'),
   });
 });
 

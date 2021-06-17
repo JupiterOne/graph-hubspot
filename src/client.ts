@@ -48,8 +48,11 @@ export class APIClient {
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      const owners = await this.hubspot.get('/crm/v3/owners');
-      if (!Array.isArray(owners)) {
+      let atLeastOne = false;
+      await this.hubspot.iterate<Owner>('/crm/v3/owners', (it) => {
+        atLeastOne = !!it;
+      });
+      if (!atLeastOne) {
         throw new Error('Provider authentication failed');
       }
     } catch (err) {
