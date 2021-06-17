@@ -8,8 +8,8 @@ export default class Hubspot {
     private readonly apiKey: string,
   ) {}
 
-  get(resource: string, config?: HubspotRequestConfig) {
-    return this.query(resource);
+  get<T>(resource: string, config?: HubspotRequestConfig): Promise<T> {
+    return this.query<T>(resource);
   }
 
   async iterate<T>(
@@ -20,15 +20,10 @@ export default class Hubspot {
     const pagination: any = {};
     let data: HubspotPaginatedResponse | null = null;
     do {
-      const res = await fetch(
-        `${this.apiBaseUrl}${resource}?` +
-          qs.stringify({
-            hapikey: this.apiKey,
-            ...config?.params,
-            ...pagination,
-          }),
-      );
-      data = await res.json();
+      data = await this.query<HubspotPaginatedResponse>(resource, {
+        ...config,
+        ...pagination,
+      });
       pagination.after = data?.paging?.next?.after;
       for (const it of data?.results || []) {
         await onEach(it);
@@ -36,35 +31,24 @@ export default class Hubspot {
     } while (data?.results && data?.paging?.next?.after);
   }
 
-  private async query(resource: string, params?: any, init?: RequestInit) {
-    const pagination: any = {};
-    const exec = () =>
-      fetch(
-        `${this.apiBaseUrl}${resource}?` +
-          qs.stringify({
-            hapikey: this.apiKey,
-            ...params,
-            ...pagination,
-          }),
-        init,
-      );
-    let data: any = null;
-    let results: any[] | undefined = undefined;
-    do {
-      const res = await exec();
-      data = await res.json();
-      pagination.after = data?.paging?.next?.after;
-      if (data?.results) {
-        if (!results) {
-          results = [];
-        }
-        results.push(...data?.results);
-      }
-    } while (data?.results && data?.paging?.next?.after);
+  private async query<T>(
+    resource: string,
+    config?: HubspotRequestConfig,
+    init?: RequestInit,
+  ): Promise<T> {
+    const res = await fetch(
+      `${this.apiBaseUrl}${resource}?` +
+        qs.stringify({
+          hapikey: this.apiKey,
+          ...config?.params,
+        }),
+      init,
+    );
+    const data = await res.json();
     if (data.status === 'error' && data.category === 'INVALID_AUTHENTICATION') {
       throw new Error('Invalid authentication');
     }
-    return results || data;
+    return data as T;
   }
 }
 
