@@ -10,7 +10,9 @@ if (process.env.LOAD_ENV) {
 const DEFAULT_API_KEY = 'dummy-api-key';
 const DEFAULT_API_URL = 'https://api.hubapi.com';
 
-export const integrationConfig: IntegrationConfig = {
-  apiKey: process.env.API_KEY || DEFAULT_API_KEY,
-  apiBaseUrl: process.env.API_BASE_URL || DEFAULT_API_URL,
-};
+export function createIntegrationConfig(): IntegrationConfig {
+  return {
+    apiKey: process.env.API_KEY || DEFAULT_API_KEY,
+    apiBaseUrl: process.env.API_BASE_URL || DEFAULT_API_URL,
+  };
+}
