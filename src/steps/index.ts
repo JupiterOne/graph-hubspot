@@ -1,4 +1,4 @@
-import { ownerSteps } from './owner';
+import { ownerSteps } from './owners';
 
 const integrationSteps = [...ownerSteps];
 

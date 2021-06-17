@@ -4,7 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { OwnerEntity } from './constants';
+import { Entities, IntegrationSteps } from '../constants';
 import { createOwnerEntity } from './converters';
 
 export async function fetchOwners({
@@ -19,15 +19,9 @@ export async function fetchOwners({
 
 export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
-    id: 'fetch-owners',
+    id: IntegrationSteps.OWNERS,
     name: 'Fetch Owners',
-    entities: [
-      {
-        resourceName: OwnerEntity.RESOURCE_NAME,
-        _type: OwnerEntity.TYPE,
-        _class: OwnerEntity.CLASS,
-      },
-    ],
+    entities: [Entities.USER],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchOwners,
