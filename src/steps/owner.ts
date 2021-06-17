@@ -19,7 +19,7 @@ export async function fetchOwners({
             id: owner.id,
           },
           assign: {
-            _key: `hubspot-owner-${owner.id}`,
+            _key: `hubspot_owner:${owner.id}`,
             _type: 'acme_user',
             _class: 'User',
             // This is a custom property that is not a part of the data model class
