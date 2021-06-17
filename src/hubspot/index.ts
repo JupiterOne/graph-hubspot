@@ -1,5 +1,6 @@
 import fetch, { RequestInit } from 'node-fetch';
 import qs from 'qs';
+import { ResourceIteratee } from '../types';
 
 export default class Hubspot {
   constructor(
@@ -9,6 +10,30 @@ export default class Hubspot {
 
   get(resource: string, config?: HubspotRequestConfig) {
     return this.query(resource);
+  }
+
+  async iterate<T>(
+    resource: string,
+    onEach: ResourceIteratee<T>,
+    config?: HubspotRequestConfig,
+  ): Promise<void> {
+    const pagination: any = {};
+    let data: HubspotPaginatedResponse | null = null;
+    do {
+      const res = await fetch(
+        `${this.apiBaseUrl}${resource}?` +
+          qs.stringify({
+            hapikey: this.apiKey,
+            ...config?.params,
+            ...pagination,
+          }),
+      );
+      data = await res.json();
+      pagination.after = data?.paging?.next?.after;
+      for (const it of data?.results || []) {
+        await onEach(it);
+      }
+    } while (data?.results && data?.paging?.next?.after);
   }
 
   private async query(resource: string, params?: any, init?: RequestInit) {
@@ -48,4 +73,28 @@ export interface HubspotRequestConfig {
    * Url Query params
    */
   params?: any;
+
+  /**
+   * Pagination start index
+   */
+  after?: string;
+}
+
+export interface HubspotPaginatedResponse {
+  results: any[];
+  paging: Paging;
+}
+
+export interface Paging {
+  next: Next;
+}
+
+export interface Next {
+  after: string;
+  link: string;
+}
+
+export interface Team {
+  id: string;
+  name: string;
 }

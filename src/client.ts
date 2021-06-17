@@ -4,9 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 import Hubspot from './hubspot';
-import { Owner } from './types';
-
-export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
+import { Owner, ResourceIteratee } from './types';
 
 // Providers often supply types with their API libraries.
 
@@ -66,10 +64,7 @@ export class APIClient {
 
   public async iterateOwners(iteratee: ResourceIteratee<Owner>) {
     try {
-      const owners = await this.hubspot.get('/crm/v3/owners');
-      for (const owner of owners) {
-        await iteratee(owner);
-      }
+      await this.hubspot.iterate<Owner>('/crm/v3/owners', iteratee);
     } catch (err) {
       throw new IntegrationProviderAPIError({
         cause: err,
