@@ -12,7 +12,6 @@ export function getOwnerKey(id: string) {
 }
 
 export function createOwnerEntity(data: Owner) {
-  console.log('data', data);
   return createIntegrationEntity({
     entityData: {
       source: data,
