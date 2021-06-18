@@ -51,7 +51,7 @@ export async function validateInvocation(
 ) {
   const { config } = context.instance;
 
-  if (Object.values(config).some((it) => !it)) {
+  if (!Object.keys(instanceConfigFields).every((key) => config[key])) {
     throw new IntegrationValidationError(
       `Config requires all of {${Object.keys(instanceConfigFields).join(
         ', ',
