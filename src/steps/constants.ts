@@ -7,9 +7,13 @@ import {
 export enum IntegrationSteps {
   OWNERS = 'fetch-owners',
   TEAMS = 'fetch-teams',
+  CONTACTS = 'fetch-contacts',
 }
 
-export const Entities: Record<'USER' | 'TEAM', StepEntityMetadata> = {
+export const Entities: Record<
+  'USER' | 'TEAM' | 'CONTACT',
+  StepEntityMetadata
+> = {
   /*
      Depending on the other resources later (e.g. will we encounter regular users?)
      We may want to call this "Owner" or similar, we can still use the same class of "User"
@@ -26,6 +30,12 @@ export const Entities: Record<'USER' | 'TEAM', StepEntityMetadata> = {
     _type: 'hubspot_team',
     _class: 'Team',
     resourceName: 'HubSpot Team',
+  },
+
+  CONTACT: {
+    _type: 'hubspot_contact',
+    _class: 'User',
+    resourceName: 'Hubspot Contact',
   },
 };
 

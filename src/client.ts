@@ -4,7 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 import Hubspot from './hubspot';
-import { Owner, ResourceIteratee } from './types';
+import { Contact, Owner, ResourceIteratee } from './types';
 
 /**
  * An APIClient maintains authentication state and provides an interface to
@@ -46,6 +46,19 @@ export class APIClient {
       throw new IntegrationProviderAPIError({
         cause: err,
         endpoint: `/crm/v3/owners`,
+        status: err.status,
+        statusText: err.statusText,
+      });
+    }
+  }
+
+  public async iterateContacts(iteratee: ResourceIteratee<Contact>) {
+    try {
+      await this.hubspot.iterate<Contact>('/crm/v3/objects/contacts', iteratee);
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: err,
+        endpoint: `/crm/v3/objects/contacts`,
         status: err.status,
         statusText: err.statusText,
       });

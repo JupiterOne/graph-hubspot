@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchOwners should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_contact:1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "2021-06-15T11:48:53.110Z",
+            "id": "1",
+            "properties": Object {
+              "createdate": "2021-06-15T11:48:53.110Z",
+              "email": "emailmaria@hubspot.com",
+              "firstname": "Maria",
+              "hs_object_id": "1",
+              "lastmodifieddate": "2021-06-15T11:48:56.088Z",
+              "lastname": "Johnson (Sample Contact)",
+            },
+            "updatedAt": "2021-06-15T11:48:56.088Z",
+          },
+        },
+      ],
+      "_type": "hubspot_contact",
+      "archived": false,
+      "createdOn": 1623757733110,
+      "displayName": "Maria Johnson (Sample Contact)",
+      "email": "emailmaria@hubspot.com",
+      "id": "1",
+      "name": "Maria Johnson (Sample Contact)",
+      "updatedOn": 1623757736088,
+      "username": "emailmaria@hubspot.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_contact:51",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "2021-06-15T11:48:53.508Z",
+            "id": "51",
+            "properties": Object {
+              "createdate": "2021-06-15T11:48:53.508Z",
+              "email": "bh@hubspot.com",
+              "firstname": "Brian",
+              "hs_object_id": "51",
+              "lastmodifieddate": "2021-06-15T11:48:57.144Z",
+              "lastname": "Halligan (Sample Contact)",
+            },
+            "updatedAt": "2021-06-15T11:48:57.144Z",
+          },
+        },
+      ],
+      "_type": "hubspot_contact",
+      "archived": false,
+      "createdOn": 1623757733508,
+      "displayName": "Brian Halligan (Sample Contact)",
+      "email": "bh@hubspot.com",
+      "id": "51",
+      "name": "Brian Halligan (Sample Contact)",
+      "updatedOn": 1623757737144,
+      "username": "bh@hubspot.com",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_contact",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;
