@@ -5,7 +5,7 @@ export interface Owner {
   lastName: string;
   createdAt: string;
   archived: boolean;
-  teams: Team[];
+  teams?: Team[];
   id: string;
   userId: number;
   email: string;

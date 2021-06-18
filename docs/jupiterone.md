@@ -96,9 +96,9 @@ https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources | Entity `_type` | Entity `_class` |
-| --------- | -------------- | --------------- |
-| Owner     | `acme_user`    | `User`          |
+| Resources    | Entity `_type` | Entity `_class` |
+| ------------ | -------------- | --------------- |
+| HubSpot User | `hubspot_user` | `User`          |
 
 <!--
 ********************************************************************************

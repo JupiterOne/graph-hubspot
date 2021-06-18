@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchOwners should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_owner:84106262",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "2021-06-14T19:38:46.907Z",
+            "email": "stefan@creativice.com",
+            "firstName": "Stefan",
+            "id": "84106262",
+            "lastName": "Virag",
+            "updatedAt": "2021-06-14T19:38:46.907Z",
+            "userId": 25150127,
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "archived": false,
+      "createdOn": 1623699526907,
+      "displayName": "Stefan Virag",
+      "email": "stefan@creativice.com",
+      "id": "84106262",
+      "name": "Stefan Virag",
+      "updatedOn": 1623699526907,
+      "username": "stefan@creativice.com",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_user",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
