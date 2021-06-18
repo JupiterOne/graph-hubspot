@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchTeams should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Team",
+      ],
+      "_key": "hubspot_team:3515767",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "3515767",
+            "name": "Team A",
+          },
+        },
+      ],
+      "_type": "hubspot_team",
+      "createdOn": undefined,
+      "displayName": "Team A",
+      "id": "3515767",
+      "name": "Team A",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_team",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

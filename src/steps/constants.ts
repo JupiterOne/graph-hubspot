@@ -1,14 +1,11 @@
-import {
-  RelationshipClass,
-  StepEntityMetadata,
-  StepRelationshipMetadata,
-} from '@jupiterone/integration-sdk-core';
+import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
 
 export enum IntegrationSteps {
   OWNERS = 'fetch-owners',
+  TEAMS = 'fetch-teams',
 }
 
-export const Entities: Record<'USER', StepEntityMetadata> = {
+export const Entities: Record<'USER' | 'TEAM', StepEntityMetadata> = {
   /*
      Depending on the other resources later (e.g. will we encounter regular users?)
      We may want to call this "Owner" or similar, we can still use the same class of "User"
@@ -19,6 +16,12 @@ export const Entities: Record<'USER', StepEntityMetadata> = {
     _type: 'hubspot_user',
     _class: 'User',
     resourceName: 'HubSpot User',
+  },
+
+  TEAM: {
+    _type: 'hubspot_team',
+    _class: 'Team',
+    resourceName: 'HubSpot Team',
   },
 };
 
