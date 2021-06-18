@@ -1,6 +1,12 @@
-import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import {
+  createDirectRelationship,
+  createIntegrationEntity,
+  Entity,
+  Relationship,
+  RelationshipClass,
+} from '@jupiterone/integration-sdk-core';
 import { Team } from '../../types';
-import { Entities } from '../constants';
+import { Entities, Relationships } from '../constants';
 
 // We may need to search for Team later using its key
 // It's a good idea to export this function and use it later
@@ -18,6 +24,25 @@ export function createTeamEntity(data: Team) {
         _key: getTeamKey(data.id),
         name: data.name,
       },
+    },
+  });
+}
+
+export function createOwnerTeamRelationship(
+  owner: Entity,
+  team: Entity,
+): Relationship {
+  const parentKey = owner._key;
+  const childKey = team._key;
+
+  return createDirectRelationship({
+    _class: RelationshipClass.HAS,
+    fromKey: parentKey,
+    fromType: Entities.USER._type,
+    toKey: childKey,
+    toType: Entities.TEAM._type,
+    properties: {
+      _type: Relationships.USER_HAS_TEAM._type,
     },
   });
 }

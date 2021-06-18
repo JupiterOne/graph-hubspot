@@ -1,4 +1,8 @@
-import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
 
 export enum IntegrationSteps {
   OWNERS = 'fetch-owners',
@@ -25,16 +29,14 @@ export const Entities: Record<'USER' | 'TEAM', StepEntityMetadata> = {
   },
 };
 
-// Example on how you'd do the same for relationships
-
-// export const Relationships: Record<
-//   | 'USER_HAS_RESOURCE',
-//   StepRelationshipMetadata
-// > = {
-//   USER_HAS_RESOURCE: {
-//     _type: 'hubspot_user_has_resource',
-//     _class: RelationshipClass.HAS,
-//     sourceType: Entities.USER._type,
-//     targetType: Entities.SOME_RESOURCE._type,
-//   }
-// }
+export const Relationships: Record<
+  'USER_HAS_TEAM',
+  StepRelationshipMetadata
+> = {
+  USER_HAS_TEAM: {
+    _type: 'hubspot_user_has_team',
+    _class: RelationshipClass.HAS,
+    sourceType: Entities.USER._type,
+    targetType: Entities.TEAM._type,
+  },
+};

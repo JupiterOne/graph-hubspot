@@ -4,7 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Entities, IntegrationSteps } from '../constants';
+import { Entities, IntegrationSteps, Relationships } from '../constants';
 import { createOwnerEntity } from './converters';
 
 export async function fetchOwners({
@@ -22,7 +22,7 @@ export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
     id: IntegrationSteps.OWNERS,
     name: 'Fetch Owners',
     entities: [Entities.USER],
-    relationships: [],
+    relationships: [Relationships.USER_HAS_TEAM],
     dependsOn: [],
     executionHandler: fetchOwners,
   },

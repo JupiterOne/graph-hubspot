@@ -2,26 +2,34 @@ import {
   IntegrationStep,
   IntegrationStepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
-import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Team } from '../../types';
+import { Owner, Team } from '../../types';
 import { Entities, IntegrationSteps } from '../constants';
-import { createTeamEntity } from './converters';
+import { createOwnerTeamRelationship, createTeamEntity } from './converters';
 
 export async function fetchTeams({
   jobState,
   instance,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const apiClient = createAPIClient(instance.config);
-  // Hubspot does not allow iterating teams. We must list owners.
+  // Hubspot does not allow iterating teams. We must list owners from previous step.
   const teams: Team[] = [];
-  await apiClient.iterateOwners((owner) => {
-    if (owner.teams) {
-      teams.push(...owner.teams);
-    }
-  });
   for (const team of teams) {
-    await jobState.addEntity(createTeamEntity(team));
+    const teamEntity = createTeamEntity(team);
+    await jobState.addEntity(teamEntity);
+    await jobState.iterateEntities(
+      { _type: Entities.USER._type },
+      async (ownerEntity) => {
+        if (
+          ((ownerEntity._rawData as unknown) as Owner).teams?.some(
+            (it) => it.id === team.id,
+          )
+        ) {
+          await jobState.addRelationship(
+            createOwnerTeamRelationship(ownerEntity, teamEntity),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -31,7 +39,7 @@ export const teamSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Fetch Teams',
     entities: [Entities.TEAM],
     relationships: [],
-    dependsOn: [],
+    dependsOn: [IntegrationSteps.OWNERS],
     executionHandler: fetchTeams,
   },
 ];

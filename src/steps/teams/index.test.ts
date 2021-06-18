@@ -2,6 +2,7 @@ import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-test
 import * as team from '.';
 import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
+import * as owner from '../owners';
 
 describe('#fetchTeams', () => {
   // TODO: we'll add recordings later
@@ -23,6 +24,7 @@ describe('#fetchTeams', () => {
       instanceConfig: createIntegrationConfig(),
     });
 
+    await owner.fetchOwners(context);
     await team.fetchTeams(context);
 
     expect({

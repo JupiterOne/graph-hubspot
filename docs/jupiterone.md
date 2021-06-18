@@ -98,7 +98,16 @@ The following entities are created:
 
 | Resources    | Entity `_type` | Entity `_class` |
 | ------------ | -------------- | --------------- |
+| HubSpot Team | `hubspot_team` | `Team`          |
 | HubSpot User | `hubspot_user` | `User`          |
+
+### Relationships
+
+The following relationships are created/mapped:
+
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
+| --------------------- | --------------------- | --------------------- |
+| `hubspot_user`        | **HAS**               | `hubspot_team`        |
 
 <!--
 ********************************************************************************
