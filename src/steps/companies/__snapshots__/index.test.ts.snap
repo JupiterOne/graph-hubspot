@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchCompanies should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Organization",
+      ],
+      "_key": "hubspot_company:6271442014 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "2021-06-18T23:49:01.383Z",
+            "id": "6271442014",
+            "properties": Object {
+              "createdate": "2021-06-18T23:49:01.383Z",
+              "domain": null,
+              "hs_lastmodifieddate": "2021-06-18T23:50:04.299Z",
+              "hs_object_id": "6271442014",
+              "name": "Test company",
+            },
+            "updatedAt": "2021-06-18T23:50:04.299Z",
+          },
+        },
+      ],
+      "_type": "hubspot_company",
+      "archived": false,
+      "createdOn": 1624060141383,
+      "displayName": "Test company",
+      "emailDomain": undefined,
+      "id": "6271442014",
+      "name": "Test company",
+      "updatedOn": 1624060204299,
+      "website": undefined,
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_company",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
