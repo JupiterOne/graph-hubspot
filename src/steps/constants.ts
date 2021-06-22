@@ -39,6 +39,18 @@ export const Entities: Record<
     _class: 'User',
     resourceName: 'Hubspot Contact',
   },
+
+  COMPANY: {
+    _type: 'hubspot_company',
+    _class: 'Organization',
+    resourceName: 'HubSpot Company',
+  },
+
+  DOMAIN: {
+    _type: 'hubspot_domain',
+    _class: 'Domain',
+    resourceName: 'Hubspot domain',
+  },
 };
 
 export const Relationships: Record<

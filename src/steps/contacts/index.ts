@@ -17,7 +17,7 @@ export async function fetchContacts({
   });
 }
 
-export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
+export const contactSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: IntegrationSteps.CONTACTS,
     name: 'Fetch Contacts',

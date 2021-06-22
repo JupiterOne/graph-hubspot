@@ -7,7 +7,7 @@ Object {
       "_class": Array [
         "User",
       ],
-      "_key": "hubspot_owner:84186927",
+      "_key": "hubspot_user:84186927 ",
       "_rawData": Array [
         Object {
           "name": "default",
