@@ -77,8 +77,3 @@ export interface Next {
   after: string;
   link: string;
 }
-
-export interface Team {
-  id: string;
-  name: string;
-}

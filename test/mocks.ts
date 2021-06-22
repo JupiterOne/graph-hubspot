@@ -1,4 +1,4 @@
-import { Company, Domain, Owner } from '../src/types';
+import { Company, Contact, Domain, Owner, Team } from '../src/types';
 
 export function getMockOwner(partial?: Partial<Owner>): Owner {
   return {
@@ -10,6 +10,30 @@ export function getMockOwner(partial?: Partial<Owner>): Owner {
     createdAt: '2021-06-14T19:38:46.907Z',
     updatedAt: '2021-06-14T19:38:46.907Z',
     archived: false,
+    ...partial,
+  };
+}
+
+export function getMockContact(partial?: Partial<Contact>): Contact {
+  return {
+    id: '84106262',
+    properties: {
+      email: 'user@example.com',
+      firstname: 'John',
+      lastname: 'Doe',
+    },
+    createdAt: '2021-06-14T19:38:46.907Z',
+    updatedAt: '2021-06-14T19:38:46.907Z',
+    archivedAt: '2021-06-14T19:38:46.907Z',
+    archived: false,
+    ...partial,
+  };
+}
+
+export function getMockTeam(partial?: Partial<Team>): Team {
+  return {
+    id: '81106262',
+    name: 'Team A',
     ...partial,
   };
 }

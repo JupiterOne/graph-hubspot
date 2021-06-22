@@ -4,26 +4,26 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Entities, IntegrationSteps, Relationships } from '../constants';
-import { createOwnerEntity } from './converters';
+import { Entities, IntegrationSteps } from '../constants';
+import { createContactEntity } from './converters';
 
-export async function fetchOwners({
+export async function fetchContacts({
   jobState,
   instance,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config);
-  await apiClient.iterateOwners(async (owner) => {
-    await jobState.addEntity(createOwnerEntity(owner));
+  await apiClient.iterateContacts(async (contact) => {
+    await jobState.addEntity(createContactEntity(contact));
   });
 }
 
 export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
-    id: IntegrationSteps.OWNERS,
-    name: 'Fetch Owners',
-    entities: [Entities.USER],
-    relationships: [Relationships.USER_HAS_TEAM],
+    id: IntegrationSteps.CONTACTS,
+    name: 'Fetch Contacts',
+    entities: [Entities.CONTACT],
+    relationships: [],
     dependsOn: [],
-    executionHandler: fetchOwners,
+    executionHandler: fetchContacts,
   },
 ];
