@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createCompanyEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Domain",
+  ],
+  "_key": "hubspot_domain:84106264 ",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "archived": false,
+        "archivedAt": "2021-06-14T19:38:46.907Z",
+        "createdAt": "2021-06-14T19:38:46.907Z",
+        "id": "84106264",
+        "properties": Object {
+          "domain": "awesomecompanydomain.tld",
+          "name": "Awesome company",
+          "website": "awesomecompanydomain.tld",
+        },
+        "updatedAt": "2021-06-14T19:38:46.907Z",
+      },
+    },
+  ],
+  "_type": "hubspot_domain",
+  "createdOn": 1623699526907,
+  "domainName": undefined,
+  "id": "84106264",
+  "updatedOn": 1623699526907,
+}
+`;
+
+exports[`#createDomainEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Domain",
+  ],
+  "_key": "hubspot_domain:84106262 ",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "archived": false,
+        "archivedAt": "2021-06-14T19:38:46.907Z",
+        "createdAt": "2021-06-14T19:38:46.907Z",
+        "domain": "creativice.com",
+        "id": "84106262",
+        "updatedAt": "2021-06-14T19:38:46.907Z",
+      },
+    },
+  ],
+  "_type": "hubspot_domain",
+  "createdOn": 1623699526907,
+  "domainName": "creativice.com",
+  "id": "84106262",
+  "updatedOn": 1623699526907,
+}
+`;

@@ -3,10 +3,14 @@ import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
 export enum IntegrationSteps {
   OWNERS = 'fetch-owners',
   COMPANIES = 'fetch-companies',
+  DOMAINS = 'fetch-domains',
 }
 
 // https://github.com/JupiterOne/data-model/tree/master/src/schemas
-export type EntitiesType = Record<'USER' | 'COMPANY', StepEntityMetadata>;
+export type EntitiesType = Record<
+  'USER' | 'COMPANY' | 'DOMAIN',
+  StepEntityMetadata
+>;
 
 export const Entities: EntitiesType = {
   /*
@@ -25,6 +29,12 @@ export const Entities: EntitiesType = {
     _type: 'hubspot_company',
     _class: 'Organization',
     resourceName: 'HubSpot Company',
+  },
+
+  DOMAIN: {
+    _type: 'hubspot_domain',
+    _class: 'Domain',
+    resourceName: 'Hubspot domain',
   },
 };
 

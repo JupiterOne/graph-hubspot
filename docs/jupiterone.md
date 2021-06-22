@@ -100,6 +100,7 @@ The following entities are created:
 | --------------- | ----------------- | --------------- |
 | HubSpot Company | `hubspot_company` | `Organization`  |
 | HubSpot User    | `hubspot_user`    | `User`          |
+| Hubspot domain  | `hubspot_domain`  | `Domain`        |
 
 <!--
 ********************************************************************************

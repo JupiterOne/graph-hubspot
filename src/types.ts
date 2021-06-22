@@ -31,3 +31,12 @@ export interface CompanyProperties {
   domain: string;
   [key: string]: any;
 }
+
+export interface Domain {
+  id: string;
+  domain: string;
+  createdAt: string;
+  updatedAt: string;
+  archivedAt: string;
+  archived: boolean;
+}
