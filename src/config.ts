@@ -21,10 +21,27 @@ import { createAPIClient } from './client';
  * `instance.config` in a UI.
  */
 export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
-  apiKey: {
+  appId: {
     type: 'string',
+    mask: true,
+  },
+  oauthClientId: {
+    type: 'string',
+    mask: true,
+  },
+  oauthClientSecret: {
+    type: 'string',
+    mask: true,
+  },
+  oauthCode: {
+    type: 'string',
+    mask: true,
   },
   apiBaseUrl: {
+    type: 'string',
+    mask: true,
+  },
+  oauthRedirectUri: {
     type: 'string',
     mask: true,
   },
@@ -36,9 +53,26 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
   /**
-   * The provider API client secret used to authenticate requests.
+   * This is your app's unique ID. You'll need it to make certain API calls.
    */
-  apiKey: string;
+  appId: string;
+
+  /**
+   * This ID is unique to your app and is used for initiating OAuth.
+   */
+  oauthClientId: string;
+
+  /**
+   * Used to establish and refresh OAuth authentication.
+   */
+  oauthClientSecret: string;
+
+  /**
+   * Used to authorize the app to access the user account
+   */
+  oauthCode: string;
+
+  oauthRedirectUri: string;
 
   /**
    * Hubspot API base url

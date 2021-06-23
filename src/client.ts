@@ -17,16 +17,13 @@ import { Owner, ResourceIteratee } from './types';
 export class APIClient {
   readonly hubspot: Hubspot;
   constructor(readonly config: IntegrationConfig) {
-    this.hubspot = new Hubspot(config.apiBaseUrl, config.apiKey);
+    this.hubspot = new Hubspot(config);
   }
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      let atLeastOne = false;
-      await this.hubspot.iterate<Owner>('/crm/v3/owners', (it) => {
-        atLeastOne = !!it;
-      });
-      if (!atLeastOne) {
+      const tokens = await this.hubspot.authenticate();
+      if (!tokens) {
         throw new Error('Provider authentication failed');
       }
     } catch (err) {
