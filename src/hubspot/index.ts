@@ -58,11 +58,10 @@ export default class Hubspot {
       },
     );
     const data = await res.json();
-    console.log('###################', data);
     this.accessToken = data.access_token;
     this.refreshToken = data.refresh_token;
     this.tokenExpiryTimestamp = Date.now() + 1000 * data.expires_in;
-    return data;
+    return this.accessToken && this.refreshToken;
   }
 
   get<T>(resource: string, config?: HubspotRequestConfig): Promise<T> {
