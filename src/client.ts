@@ -22,14 +22,14 @@ export class APIClient {
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      const tokens = await this.hubspot.authenticate();
+      const tokens = await this.hubspot.get('/crm/v3/properties/contacts');
       if (!tokens) {
         throw new Error('Provider authentication failed');
       }
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: `/crm/v3/properties/contact`,
+        endpoint: `/crm/v3/properties/contacts`,
         status: err.status,
         statusText: err.statusText,
       });

@@ -25,23 +25,11 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
-  oauthClientId: {
-    type: 'string',
-    mask: true,
-  },
-  oauthClientSecret: {
-    type: 'string',
-    mask: true,
-  },
-  oauthCode: {
+  oauthAccessToken: {
     type: 'string',
     mask: true,
   },
   apiBaseUrl: {
-    type: 'string',
-    mask: true,
-  },
-  oauthRedirectUri: {
     type: 'string',
     mask: true,
   },
@@ -58,21 +46,9 @@ export interface IntegrationConfig extends IntegrationInstanceConfig {
   appId: string;
 
   /**
-   * This ID is unique to your app and is used for initiating OAuth.
+   * This access_token is considered valid as a Bearer Authorization header
    */
-  oauthClientId: string;
-
-  /**
-   * Used to establish and refresh OAuth authentication.
-   */
-  oauthClientSecret: string;
-
-  /**
-   * Used to authorize the app to access the user account
-   */
-  oauthCode: string;
-
-  oauthRedirectUri: string;
+  oauthAccessToken: string;
 
   /**
    * Hubspot API base url
@@ -84,7 +60,6 @@ export async function validateInvocation(
   context: IntegrationExecutionContext<IntegrationConfig>,
 ) {
   const { config } = context.instance;
-
   if (!Object.keys(instanceConfigFields).every((key) => config[key])) {
     throw new IntegrationValidationError(
       `Config requires all of {${Object.keys(instanceConfigFields).join(
