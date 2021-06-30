@@ -21,8 +21,13 @@ import { createAPIClient } from './client';
  * `instance.config` in a UI.
  */
 export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
-  apiKey: {
+  appId: {
     type: 'string',
+    mask: true,
+  },
+  oauthAccessToken: {
+    type: 'string',
+    mask: true,
   },
   apiBaseUrl: {
     type: 'string',
@@ -36,9 +41,14 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
   /**
-   * The provider API client secret used to authenticate requests.
+   * This is your app's unique ID. You'll need it to make certain API calls.
    */
-  apiKey: string;
+  appId: string;
+
+  /**
+   * This access_token is considered valid as a Bearer Authorization header
+   */
+  oauthAccessToken: string;
 
   /**
    * Hubspot API base url
@@ -50,7 +60,6 @@ export async function validateInvocation(
   context: IntegrationExecutionContext<IntegrationConfig>,
 ) {
   const { config } = context.instance;
-
   if (!Object.keys(instanceConfigFields).every((key) => config[key])) {
     throw new IntegrationValidationError(
       `Config requires all of {${Object.keys(instanceConfigFields).join(

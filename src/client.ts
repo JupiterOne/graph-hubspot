@@ -17,22 +17,19 @@ import { Company, Contact, Domain, Owner, ResourceIteratee } from './types';
 export class APIClient {
   readonly hubspot: Hubspot;
   constructor(readonly config: IntegrationConfig) {
-    this.hubspot = new Hubspot(config.apiBaseUrl, config.apiKey);
+    this.hubspot = new Hubspot(config);
   }
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      let atLeastOne = false;
-      await this.hubspot.iterate<Owner>('/crm/v3/owners', (it) => {
-        atLeastOne = !!it;
-      });
-      if (!atLeastOne) {
+      const tokens = await this.hubspot.get('/crm/v3/properties/contacts');
+      if (!tokens) {
         throw new Error('Provider authentication failed');
       }
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: `/crm/v3/properties/contact`,
+        endpoint: `/crm/v3/properties/contacts`,
         status: err.status,
         statusText: err.statusText,
       });
