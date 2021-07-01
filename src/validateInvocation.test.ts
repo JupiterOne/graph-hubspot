@@ -30,9 +30,10 @@ it('auth error', async () => {
 
   const executionContext = createMockExecutionContext({
     instanceConfig: {
-      clientId: 'INVALID',
-      clientSecret: 'INVALID',
-    },
+      oauthAccessToken: 'INVALID',
+      apiBaseUrl: 'https://api.hubapi.com',
+      appId: '12343',
+    } as IntegrationConfig,
   });
 
   await expect(validateInvocation(executionContext)).rejects.toThrow(

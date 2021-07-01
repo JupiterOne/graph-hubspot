@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchDomains should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "hubspot_domain:48846048848 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createdAt": "2021-06-15T11:48:43.421Z",
+            "domain": "995b7544-4d0f-4408-98b8-0df292d49c1e.hubspotpagebuilder.com",
+            "expectedCname": "20240583.group33.sites.hubspot.net",
+            "id": "48846048848",
+            "isHttpsEnabled": true,
+            "isHttpsOnly": false,
+            "isManuallyMarkedAsResolving": false,
+            "isPrimaryBlogPost": false,
+            "isPrimaryEmail": false,
+            "isPrimaryKnowledge": false,
+            "isPrimaryLandingPage": true,
+            "isPrimarySitePage": false,
+            "isResolving": true,
+            "isUsedForBlogPost": false,
+            "isUsedForEmail": false,
+            "isUsedForKnowledge": false,
+            "isUsedForLandingPage": true,
+            "isUsedForSitePage": false,
+            "redirectTo": "",
+            "updatedAt": "2021-06-15T11:48:43.421Z",
+          },
+        },
+      ],
+      "_type": "hubspot_domain",
+      "createdOn": 1623757723421,
+      "displayName": "995b7544-4d0f-4408-98b8-0df292d49c1e.hubspotpagebuilder.com",
+      "domainName": "995b7544-4d0f-4408-98b8-0df292d49c1e.hubspotpagebuilder.com",
+      "id": "48846048848",
+      "name": "995b7544-4d0f-4408-98b8-0df292d49c1e.hubspotpagebuilder.com",
+      "updatedOn": 1623757723421,
+    },
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "hubspot_domain:48846048849 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "createdAt": "2021-06-15T11:48:44.051Z",
+            "domain": "20240583.hs-sites.com",
+            "expectedCname": "20240583.group33.sites.hubspot.net",
+            "id": "48846048849",
+            "isHttpsEnabled": true,
+            "isHttpsOnly": false,
+            "isManuallyMarkedAsResolving": false,
+            "isPrimaryBlogPost": true,
+            "isPrimaryEmail": true,
+            "isPrimaryKnowledge": true,
+            "isPrimaryLandingPage": false,
+            "isPrimarySitePage": true,
+            "isResolving": true,
+            "isUsedForBlogPost": true,
+            "isUsedForEmail": true,
+            "isUsedForKnowledge": true,
+            "isUsedForLandingPage": false,
+            "isUsedForSitePage": true,
+            "redirectTo": "",
+            "updatedAt": "2021-06-15T11:48:44.051Z",
+          },
+        },
+      ],
+      "_type": "hubspot_domain",
+      "createdOn": 1623757724051,
+      "displayName": "20240583.hs-sites.com",
+      "domainName": "20240583.hs-sites.com",
+      "id": "48846048849",
+      "name": "20240583.hs-sites.com",
+      "updatedOn": 1623757724051,
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_domain",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;

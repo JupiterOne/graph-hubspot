@@ -1,8 +1,8 @@
 import {
   IntegrationExecutionContext,
-  IntegrationValidationError,
-  IntegrationInstanceConfigFieldMap,
   IntegrationInstanceConfig,
+  IntegrationInstanceConfigFieldMap,
+  IntegrationValidationError,
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from './client';
 
@@ -21,10 +21,15 @@ import { createAPIClient } from './client';
  * `instance.config` in a UI.
  */
 export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
-  clientId: {
+  appId: {
     type: 'string',
+    mask: true,
   },
-  clientSecret: {
+  oauthAccessToken: {
+    type: 'string',
+    mask: true,
+  },
+  apiBaseUrl: {
     type: 'string',
     mask: true,
   },
@@ -36,24 +41,30 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
   /**
-   * The provider API client ID used to authenticate requests.
+   * This is your app's unique ID. You'll need it to make certain API calls.
    */
-  clientId: string;
+  appId: string;
 
   /**
-   * The provider API client secret used to authenticate requests.
+   * This access_token is considered valid as a Bearer Authorization header
    */
-  clientSecret: string;
+  oauthAccessToken: string;
+
+  /**
+   * Hubspot API base url
+   */
+  apiBaseUrl: string;
 }
 
 export async function validateInvocation(
   context: IntegrationExecutionContext<IntegrationConfig>,
 ) {
   const { config } = context.instance;
-
-  if (!config.clientId || !config.clientSecret) {
+  if (!Object.keys(instanceConfigFields).every((key) => config[key])) {
     throw new IntegrationValidationError(
-      'Config requires all of {clientId, clientSecret}',
+      `Config requires all of {${Object.keys(instanceConfigFields).join(
+        ', ',
+      )}}`,
     );
   }
 
