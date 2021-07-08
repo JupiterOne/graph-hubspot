@@ -1,6 +1,6 @@
 import {
   createMockStepExecutionContext,
-  Recording,
+  // Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';

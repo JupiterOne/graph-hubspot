@@ -3,7 +3,7 @@ import qs from 'qs';
 import { IntegrationConfig } from '../config';
 import { ResourceIteratee } from '../types';
 export default class Hubspot {
-  private readonly appId: string;
+  // private readonly appId: string;
   private readonly apiBaseUrl: string;
   private readonly oauthAccessToken: string;
 
