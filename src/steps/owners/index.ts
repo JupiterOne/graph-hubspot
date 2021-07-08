@@ -36,7 +36,10 @@ export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
     id: IntegrationSteps.OWNERS,
     name: 'Fetch Owners',
     entities: [Entities.OWNER],
-    relationships: [Relationships.OWNER_ASSIGNED_ROLE],
+    relationships: [
+      Relationships.OWNER_ASSIGNED_ROLE,
+      Relationships.USER_HAS_TEAM,
+    ],
     dependsOn: [IntegrationSteps.ROLES],
     executionHandler: fetchOwners,
   },
