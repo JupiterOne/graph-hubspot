@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#fetchOwners should collect data 1`] = `
+exports[`#fetchContacts should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
@@ -20,10 +20,10 @@ Object {
               "email": "emailmaria@hubspot.com",
               "firstname": "Maria",
               "hs_object_id": "1",
-              "lastmodifieddate": "2021-07-07T13:02:44.543Z",
+              "lastmodifieddate": "2021-07-08T05:09:02.563Z",
               "lastname": "Johnson (Sample Contact)",
             },
-            "updatedAt": "2021-07-07T13:02:44.543Z",
+            "updatedAt": "2021-07-08T05:09:02.563Z",
           },
         },
       ],
@@ -34,7 +34,7 @@ Object {
       "email": "emailmaria@hubspot.com",
       "id": "1",
       "name": "Maria Johnson (Sample Contact)",
-      "updatedOn": 1625662964543,
+      "updatedOn": 1625720942563,
       "username": "emailmaria@hubspot.com",
     },
     Object {
@@ -54,10 +54,10 @@ Object {
               "email": "bh@hubspot.com",
               "firstname": "Brian",
               "hs_object_id": "51",
-              "lastmodifieddate": "2021-07-07T13:02:45.076Z",
+              "lastmodifieddate": "2021-07-08T05:09:02.404Z",
               "lastname": "Halligan (Sample Contact)",
             },
-            "updatedAt": "2021-07-07T13:02:45.076Z",
+            "updatedAt": "2021-07-08T05:09:02.404Z",
           },
         },
       ],
@@ -68,7 +68,7 @@ Object {
       "email": "bh@hubspot.com",
       "id": "51",
       "name": "Brian Halligan (Sample Contact)",
-      "updatedOn": 1625662965076,
+      "updatedOn": 1625720942404,
       "username": "bh@hubspot.com",
     },
   ],

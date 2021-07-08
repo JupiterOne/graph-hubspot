@@ -1,25 +1,25 @@
 import {
   createMockStepExecutionContext,
-  // Recording,
+  Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
 import * as role from '.';
+import { setupHubspotRecording } from '../../../test/recording';
 
 describe('#fetchRoles', () => {
-  // TODO: we'll add recordings later
-  // let recording: Recording;
+  let recording: Recording;
 
-  // beforeEach(() => {
-  //   recording = setupHubSpotRecording({
-  //     directory: __dirname,
-  //     name: 'fetchRoles',
-  //   });
-  // });
+  beforeEach(() => {
+    recording = setupHubspotRecording({
+      directory: __dirname,
+      name: 'fetchRoles',
+    });
+  });
 
-  // afterEach(async () => {
-  //   await recording.stop();
-  // });
+  afterEach(async () => {
+    await recording.stop();
+  });
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({

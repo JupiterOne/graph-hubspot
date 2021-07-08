@@ -2,10 +2,46 @@
 
 exports[`#fetchCompanies should collect data 1`] = `
 Object {
-  "collectedEntities": Array [],
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Organization",
+      ],
+      "_key": "hubspot_company:6534491450 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "2021-07-08T05:09:01.918Z",
+            "id": "6534491450",
+            "properties": Object {
+              "createdate": "2021-07-08T05:09:01.918Z",
+              "domain": "hubspot.com",
+              "hs_lastmodifieddate": "2021-07-08T05:10:03.397Z",
+              "hs_object_id": "6534491450",
+              "name": "HubSpot, Inc.",
+            },
+            "updatedAt": "2021-07-08T05:10:03.397Z",
+          },
+        },
+      ],
+      "_type": "hubspot_company",
+      "archived": false,
+      "createdOn": 1625720941918,
+      "displayName": "HubSpot, Inc.",
+      "emailDomain": "hubspot.com",
+      "id": "6534491450",
+      "name": "HubSpot, Inc.",
+      "updatedOn": 1625721003397,
+      "website": undefined,
+    },
+  ],
   "collectedRelationships": Array [],
-  "encounteredTypes": Array [],
-  "numCollectedEntities": 0,
+  "encounteredTypes": Array [
+    "hubspot_company",
+  ],
+  "numCollectedEntities": 1,
   "numCollectedRelationships": 0,
 }
 `;

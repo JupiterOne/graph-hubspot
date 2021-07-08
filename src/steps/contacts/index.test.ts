@@ -1,22 +1,25 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import {
+  createMockStepExecutionContext,
+  Recording,
+} from '@jupiterone/integration-sdk-testing';
 import * as contact from '.';
 import { createIntegrationConfig } from '../../../test/config';
+import { setupHubspotRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../config';
 
-describe('#fetchOwners', () => {
-  // TODO: we'll add recordings later
-  // let recording: Recording;
+describe('#fetchContacts', () => {
+  let recording: Recording;
 
-  // beforeEach(() => {
-  //   recording = setupHubSpotRecording({
-  //     directory: __dirname,
-  //     name: 'fetchOwners',
-  //   });
-  // });
+  beforeEach(() => {
+    recording = setupHubspotRecording({
+      directory: __dirname,
+      name: 'fetchContacts',
+    });
+  });
 
-  // afterEach(async () => {
-  //   await recording.stop();
-  // });
+  afterEach(async () => {
+    await recording.stop();
+  });
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({

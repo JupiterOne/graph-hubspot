@@ -25,12 +25,34 @@ Object {
       "name": "TestRole",
       "requiresBillingWrite": false,
     },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "hubspot_role:95389 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "95389",
+            "name": "SuperRole",
+            "requiresBillingWrite": true,
+          },
+        },
+      ],
+      "_type": "hubspot_role",
+      "createdOn": undefined,
+      "displayName": "SuperRole",
+      "id": "95389",
+      "name": "SuperRole",
+      "requiresBillingWrite": true,
+    },
   ],
   "collectedRelationships": Array [],
   "encounteredTypes": Array [
     "hubspot_role",
   ],
-  "numCollectedEntities": 1,
+  "numCollectedEntities": 2,
   "numCollectedRelationships": 0,
 }
 `;
