@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchRoles should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "hubspot_role:95124 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "95124",
+            "name": "TestRole",
+            "requiresBillingWrite": false,
+          },
+        },
+      ],
+      "_type": "hubspot_role",
+      "createdOn": undefined,
+      "displayName": "TestRole",
+      "id": "95124",
+      "name": "TestRole",
+      "requiresBillingWrite": false,
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_role",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

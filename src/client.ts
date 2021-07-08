@@ -4,7 +4,15 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 import Hubspot from './hubspot';
-import { Company, Contact, Domain, Owner, ResourceIteratee } from './types';
+import {
+  Company,
+  Contact,
+  Domain,
+  Owner,
+  ResourceIteratee,
+  Role,
+  User,
+} from './types';
 
 /**
  * An APIClient maintains authentication state and provides an interface to
@@ -43,6 +51,33 @@ export class APIClient {
       throw new IntegrationProviderAPIError({
         cause: err,
         endpoint: `/crm/v3/owners`,
+        status: err.status,
+        statusText: err.statusText,
+      });
+    }
+  }
+
+  public async iterateRoles(iteratee: ResourceIteratee<Role>) {
+    try {
+      await this.hubspot.iterate<Role>('/settings/v3/users/roles', iteratee);
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: err,
+        endpoint: `/settings/v3/users/roles`,
+        status: err.status,
+        statusText: err.statusText,
+      });
+    }
+  }
+
+  public async fetchUser(userId: string): Promise<User> {
+    try {
+      const user = await this.hubspot.get<User>(`/settings/v3/users/${userId}`);
+      return user;
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: err,
+        endpoint: `/settings/v3/users/{userId}`,
         status: err.status,
         statusText: err.statusText,
       });

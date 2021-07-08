@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "User",
   ],
-  "_key": "hubspot_user:84106262 ",
+  "_key": "hubspot_owner:84106262 ",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -21,7 +21,7 @@ Object {
       },
     },
   ],
-  "_type": "hubspot_user",
+  "_type": "hubspot_owner",
   "archived": false,
   "createdOn": 1623699526907,
   "displayName": "John Doe",
@@ -29,6 +29,7 @@ Object {
   "id": "84106262",
   "name": "John Doe",
   "updatedOn": 1623699526907,
+  "userId": 25150127,
   "username": "user@example.com",
 }
 `;

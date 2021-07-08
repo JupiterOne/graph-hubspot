@@ -1,4 +1,4 @@
-import { Company, Contact, Domain, Owner, Team } from '../src/types';
+import { Company, Contact, Domain, Owner, Role, Team } from '../src/types';
 
 export function getMockOwner(partial?: Partial<Owner>): Owner {
   return {
@@ -26,6 +26,15 @@ export function getMockContact(partial?: Partial<Contact>): Contact {
     updatedAt: '2021-06-14T19:38:46.907Z',
     archivedAt: '2021-06-14T19:38:46.907Z',
     archived: false,
+    ...partial,
+  };
+}
+
+export function getMockRole(partial?: Partial<Role>): Role {
+  return {
+    id: '95124',
+    name: 'TestRole',
+    requiresBillingWrite: false,
     ...partial,
   };
 }
