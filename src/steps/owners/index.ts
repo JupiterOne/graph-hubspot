@@ -1,12 +1,14 @@
 import {
+  createDirectRelationship,
   IntegrationStep,
   IntegrationStepExecutionContext,
+  RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { getEntityKey } from '../../utils';
 import { Entities, IntegrationSteps, Relationships } from '../constants';
-import { createOwnerEntity, createOwnerRoleRelationship } from './converters';
+import { createUserEntity } from './converters';
 
 export async function fetchOwners({
   jobState,
@@ -14,18 +16,24 @@ export async function fetchOwners({
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config);
   await apiClient.iterateOwners(async (owner) => {
-    // Intermediate step to get owner role through user endpoint
     const { roleId } = await apiClient.fetchUser(owner.userId.toString());
 
     const roleEntity = await jobState.findEntity(
       getEntityKey(Entities.ROLE, roleId),
     );
-    const ownerEntity = createOwnerEntity(owner);
-    await jobState.addEntity(ownerEntity);
+    const userEntity = createUserEntity(owner);
+    await jobState.addEntity(userEntity);
 
-    if (roleEntity && ownerEntity) {
+    if (roleEntity && userEntity) {
       await jobState.addRelationship(
-        createOwnerRoleRelationship(ownerEntity, roleEntity),
+        createDirectRelationship({
+          _class: RelationshipClass.ASSIGNED,
+          from: userEntity,
+          to: roleEntity,
+          properties: {
+            _type: Relationships.USER_ASSIGNED_ROLE._type,
+          },
+        }),
       );
     }
   });
@@ -35,11 +43,8 @@ export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: IntegrationSteps.OWNERS,
     name: 'Fetch Owners',
-    entities: [Entities.OWNER],
-    relationships: [
-      Relationships.OWNER_ASSIGNED_ROLE,
-      Relationships.USER_HAS_TEAM,
-    ],
+    entities: [Entities.USER],
+    relationships: [Relationships.USER_ASSIGNED_ROLE],
     dependsOn: [IntegrationSteps.ROLES],
     executionHandler: fetchOwners,
   },

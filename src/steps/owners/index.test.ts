@@ -9,7 +9,6 @@ import { Relationships } from '../constants';
 import { setupHubspotRecording } from '../../../test/recording';
 
 describe('#fetchOwners', () => {
-  // TODO: we'll add recordings later
   let recording: Recording;
 
   beforeEach(() => {
@@ -52,9 +51,10 @@ describe('#fetchOwners', () => {
             type: 'array',
             items: { type: 'object' },
           },
-          _type: { const: 'hubspot_owner' },
-          // We want to make sure we include every field from converter.ts
+          _type: { const: 'hubspot_user' },
           name: { type: 'string' },
+          firstName: { type: 'string' },
+          lastName: { type: 'string' },
           email: { type: 'string' },
           userId: { type: 'number' },
           username: { type: 'string' },
@@ -67,14 +67,14 @@ describe('#fetchOwners', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === Relationships.OWNER_ASSIGNED_ROLE._type,
+        (e) => e._type === Relationships.USER_ASSIGNED_ROLE._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
-          _class: { const: 'OWNER' },
+          _class: { const: 'USER' },
           _type: {
-            const: 'hubspot_owner_assigned_role',
+            const: 'hubspot_user_assigned_role',
           },
         },
       },

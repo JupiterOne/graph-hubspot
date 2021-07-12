@@ -17,12 +17,6 @@ export const Entities: Record<
   'OWNER' | 'USER' | 'TEAM' | 'CONTACT' | 'COMPANY' | 'DOMAIN' | 'ROLE',
   StepEntityMetadata
 > = {
-  /*
-     Depending on the other resources later (e.g. will we encounter regular users?)
-     We may want to call this "Owner" or similar, we can still use the same class of "User"
-     Since user can be both a 'regular' user and the owner.
-     A bit hard to tell for sure right now
-  */
   USER: {
     _type: 'hubspot_user',
     _class: 'User',
@@ -67,7 +61,7 @@ export const Entities: Record<
 };
 
 export const Relationships: Record<
-  'USER_HAS_TEAM' | 'OWNER_ASSIGNED_ROLE',
+  'USER_HAS_TEAM' | 'USER_ASSIGNED_ROLE',
   StepRelationshipMetadata
 > = {
   USER_HAS_TEAM: {
@@ -77,10 +71,10 @@ export const Relationships: Record<
     targetType: Entities.TEAM._type,
   },
 
-  OWNER_ASSIGNED_ROLE: {
+  USER_ASSIGNED_ROLE: {
     _type: 'hubspot_user_assigned_role',
     _class: RelationshipClass.ASSIGNED,
-    sourceType: Entities.OWNER._type,
+    sourceType: Entities.USER._type,
     targetType: Entities.ROLE._type,
   },
 };
