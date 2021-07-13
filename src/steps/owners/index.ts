@@ -30,9 +30,6 @@ export async function fetchOwners({
           _class: RelationshipClass.ASSIGNED,
           from: userEntity,
           to: roleEntity,
-          properties: {
-            _type: Relationships.USER_ASSIGNED_ROLE._type,
-          },
         }),
       );
     }
