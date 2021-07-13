@@ -1,9 +1,10 @@
+import { IntegrationError } from '@jupiterone/integration-sdk-core';
 import fetch, { RequestInit } from 'node-fetch';
 import qs from 'qs';
 import { IntegrationConfig } from '../config';
 import { ResourceIteratee } from '../types';
 export default class Hubspot {
-  private readonly appId: string;
+  // private readonly appId: string;
   private readonly apiBaseUrl: string;
   private readonly oauthAccessToken: string;
 
@@ -57,8 +58,11 @@ export default class Hubspot {
       },
     );
     const data = await res.json();
-    if (data.status === 'error' && data.category === 'INVALID_AUTHENTICATION') {
-      throw new Error('Invalid authentication');
+    if (data.status === 'error') {
+      throw new IntegrationError({
+        message: data.message,
+        code: data.category,
+      });
     }
     return data as T;
   }

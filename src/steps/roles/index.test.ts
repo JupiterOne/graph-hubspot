@@ -4,17 +4,16 @@ import {
 } from '@jupiterone/integration-sdk-testing';
 import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
-import * as owner from '.';
-import { Relationships } from '../constants';
+import * as role from '.';
 import { setupHubspotRecording } from '../../../test/recording';
 
-describe('#fetchOwners', () => {
+describe('#fetchRoles', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupHubspotRecording({
       directory: __dirname,
-      name: 'fetchOwners',
+      name: 'fetchRoles',
     });
   });
 
@@ -27,7 +26,7 @@ describe('#fetchOwners', () => {
       instanceConfig: createIntegrationConfig(),
     });
 
-    await owner.fetchOwners(context);
+    await role.fetchRoles(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -37,13 +36,13 @@ describe('#fetchOwners', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    const owners = context.jobState.collectedEntities.filter((e) =>
-      e._class.includes('User'),
+    const roles = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('AccessRole'),
     );
 
-    expect(owners.length).toBeGreaterThan(0);
-    expect(owners).toMatchGraphObjectSchema({
-      _class: ['User'],
+    expect(roles.length).toBeGreaterThan(0);
+    expect(roles).toMatchGraphObjectSchema({
+      _class: ['AccessRole'],
       schema: {
         additionalProperties: false,
         properties: {
@@ -51,31 +50,10 @@ describe('#fetchOwners', () => {
             type: 'array',
             items: { type: 'object' },
           },
-          _type: { const: 'hubspot_user' },
+          _type: { const: 'hubspot_role' },
+          // We want to make sure we include every field from converter.ts
           name: { type: 'string' },
-          firstName: { type: 'string' },
-          lastName: { type: 'string' },
-          email: { type: 'string' },
-          userId: { type: 'number' },
-          username: { type: 'string' },
-          archived: { type: 'boolean' },
-          createdOn: { type: 'number' },
-          updatedOn: { type: 'number' },
-        },
-      },
-    });
-
-    expect(
-      context.jobState.collectedRelationships.filter(
-        (e) => e._type === Relationships.USER_ASSIGNED_ROLE._type,
-      ),
-    ).toMatchDirectRelationshipSchema({
-      schema: {
-        properties: {
-          _class: { const: 'USER' },
-          _type: {
-            const: 'hubspot_user_assigned_role',
-          },
+          requiresBillingWrite: { type: 'boolean' },
         },
       },
     });

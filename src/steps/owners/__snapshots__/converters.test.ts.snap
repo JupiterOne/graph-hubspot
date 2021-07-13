@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createOwnerEntity should convert to entity 1`] = `
+exports[`#createUserEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "User",
@@ -26,9 +26,12 @@ Object {
   "createdOn": 1623699526907,
   "displayName": "John Doe",
   "email": "user@example.com",
+  "firstName": "John",
   "id": "84106262",
+  "lastName": "Doe",
   "name": "John Doe",
   "updatedOn": 1623699526907,
+  "userId": 25150127,
   "username": "user@example.com",
 }
 `;

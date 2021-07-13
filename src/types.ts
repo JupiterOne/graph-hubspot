@@ -54,3 +54,15 @@ export interface ContactProperties {
   lastname: string;
   [key: string]: any;
 }
+
+export interface User {
+  id: string;
+  email: string;
+  roleId: string;
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  requiresBillingWrite: boolean;
+}
