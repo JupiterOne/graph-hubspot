@@ -1,4 +1,4 @@
-import { Company, Contact, Domain, Owner, Role, Team } from '../src/types';
+import { Company, Owner, Role } from '../src/types';
 
 export function getMockOwner(partial?: Partial<Owner>): Owner {
   return {
@@ -14,35 +14,11 @@ export function getMockOwner(partial?: Partial<Owner>): Owner {
   };
 }
 
-export function getMockContact(partial?: Partial<Contact>): Contact {
-  return {
-    id: '84106262',
-    properties: {
-      email: 'user@example.com',
-      firstname: 'John',
-      lastname: 'Doe',
-    },
-    createdAt: '2021-06-14T19:38:46.907Z',
-    updatedAt: '2021-06-14T19:38:46.907Z',
-    archivedAt: '2021-06-14T19:38:46.907Z',
-    archived: false,
-    ...partial,
-  };
-}
-
 export function getMockRole(partial?: Partial<Role>): Role {
   return {
     id: '95124',
     name: 'TestRole',
     requiresBillingWrite: false,
-    ...partial,
-  };
-}
-
-export function getMockTeam(partial?: Partial<Team>): Team {
-  return {
-    id: '81106262',
-    name: 'Team A',
     ...partial,
   };
 }
@@ -59,18 +35,6 @@ export function getMockCompany(partial?: Partial<Company>): Company {
     updatedAt: '2021-06-14T19:38:46.907Z',
     archivedAt: '2021-06-14T19:38:46.907Z',
     archived: false,
-    ...partial,
-  };
-}
-
-export function getMockDomain(partial?: Partial<Domain>): Domain {
-  return {
-    id: '84106262',
-    createdAt: '2021-06-14T19:38:46.907Z',
-    updatedAt: '2021-06-14T19:38:46.907Z',
-    archivedAt: '2021-06-14T19:38:46.907Z',
-    archived: false,
-    domain: 'creativice.com',
     ...partial,
   };
 }
