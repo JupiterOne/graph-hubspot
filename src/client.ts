@@ -1,37 +1,37 @@
 import {
   ExecutionHistory,
-  IntegrationProviderAPIError,
+  // IntegrationProviderAPIError,
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 import * as hubspot from '@hubspot/api-client';
-import { URL, URLSearchParams } from 'url';
-import fetch, { RequestInit } from 'node-fetch';
+// import { URL, URLSearchParams } from 'url';
+// import fetch, { RequestInit } from 'node-fetch';
 import { IntegrationConfig } from './config';
 import {
-  Company,
-  Owner,
+  // Company,
+  // Owner,
   ResourceIteratee,
   Role,
   User,
-  HubspotPaginatedResponse,
-  HubspotRequestConfig,
-  LegacyHubspotPaginatedResponse,
+  // HubspotPaginatedResponse,
+  // HubspotRequestConfig,
+  // LegacyHubspotPaginatedResponse,
 } from './types';
 
 export class APIClient {
-  private readonly apiBaseUrl: string;
-  private readonly oauthAccessToken: string;
-  private readonly executionHistory: ExecutionHistory;
-  private readonly maxPerPage = 30;
+  // private readonly apiBaseUrl: string;
+  // private readonly oauthAccessToken: string;
+  // private readonly executionHistory: ExecutionHistory;
+  // private readonly maxPerPage = 30;
   readonly hubspotClient: hubspot.Client;
 
   constructor(
     readonly integrationConfig: IntegrationConfig,
     executionHistory: ExecutionHistory,
   ) {
-    this.apiBaseUrl = integrationConfig.apiBaseUrl;
-    this.oauthAccessToken = integrationConfig.oauthAccessToken;
-    this.executionHistory = executionHistory;
+    // this.apiBaseUrl = integrationConfig.apiBaseUrl;
+    // this.oauthAccessToken = integrationConfig.oauthAccessToken;
+    // this.executionHistory = executionHistory;
     this.hubspotClient = new hubspot.Client({
       accessToken: integrationConfig.oauthAccessToken,
     });
