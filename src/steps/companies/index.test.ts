@@ -55,7 +55,6 @@ describe('#fetchCompanies', () => {
           _type: { const: Entities.COMPANY._type },
 
           id: { type: 'string' },
-          portalId: { type: 'number' },
           name: { type: 'string' },
           archived: { type: 'boolean' },
           host: { type: 'string' },

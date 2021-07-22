@@ -4,6 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
+import { Company } from '../../types';
 import { Entities, IntegrationSteps } from '../constants';
 import { createCompanyEntity } from './converters';
 
@@ -13,8 +14,9 @@ export async function fetchCompanies({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config, executionHistory);
-  await apiClient.iterateCompanies(async (company) => {
-    await jobState.addEntity(createCompanyEntity(company));
+  const res = await apiClient.hubspotClient.crm.companies.getAll();
+  res.forEach(async (company) => {
+    await jobState.addEntity(createCompanyEntity(company as Company));
   });
 }
 

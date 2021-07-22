@@ -1,5 +1,6 @@
 import {
   createDirectRelationship,
+  Entity,
   IntegrationStep,
   IntegrationStepExecutionContext,
   RelationshipClass,
@@ -16,15 +17,29 @@ export async function fetchOwners({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config, executionHistory);
-  await apiClient.iterateOwners(async (owner) => {
+  const res = await apiClient.hubspotClient.crm.owners.defaultApi.getPage();
+
+  res.body.results.forEach(async (owner) => {
     const { roleId } = await apiClient.fetchUser(owner.userId.toString());
 
-    const roleEntity = await jobState.findEntity(
-      getEntityKey(Entities.ROLE, roleId),
-    );
-    const userEntity = createUserEntity(owner);
+    let roleEntity: Entity;
+    if (roleId) {
+      roleEntity = await jobState.findEntity(
+        getEntityKey(Entities.ROLE, roleId),
+      );
+    }
+
+    const userEntity = createUserEntity({
+      ...owner,
+      createdAt: owner.createdAt.toString(),
+      updatedAt: owner.updatedAt.toString(),
+    });
+
     await jobState.addEntity(userEntity);
 
+    const newEnt = await jobState.findEntity(
+      getEntityKey(Entities.USER, owner.id),
+    );
     if (roleEntity && userEntity) {
       await jobState.addRelationship(
         createDirectRelationship({

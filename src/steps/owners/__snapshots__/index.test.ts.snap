@@ -2,79 +2,10 @@
 
 exports[`#fetchOwners should collect data 1`] = `
 Object {
-  "collectedEntities": Array [
-    Object {
-      "_class": Array [
-        "User",
-      ],
-      "_key": "hubspot_user:84106262 ",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "archived": false,
-            "createdAt": "2021-06-14T19:38:46.907Z",
-            "email": "stefan@creativice.com",
-            "firstName": "Stefan",
-            "id": "84106262",
-            "lastName": "Virag",
-            "updatedAt": "2021-06-14T19:38:46.907Z",
-            "userId": 25150127,
-          },
-        },
-      ],
-      "_type": "hubspot_user",
-      "archived": false,
-      "createdOn": 1623699526907,
-      "displayName": "Stefan Virag",
-      "email": "stefan@creativice.com",
-      "firstName": "Stefan",
-      "id": "84106262",
-      "lastName": "Virag",
-      "name": "Stefan Virag",
-      "updatedOn": 1623699526907,
-      "userId": 25150127,
-      "username": "stefan@creativice.com",
-    },
-    Object {
-      "_class": Array [
-        "User",
-      ],
-      "_key": "hubspot_user:90089236 ",
-      "_rawData": Array [
-        Object {
-          "name": "default",
-          "rawData": Object {
-            "archived": false,
-            "createdAt": "2021-07-13T13:57:46.581Z",
-            "email": "viragsf@gmail.com",
-            "firstName": "",
-            "id": "90089236",
-            "lastName": "",
-            "updatedAt": "2021-07-13T13:57:46.581Z",
-            "userId": 25516621,
-          },
-        },
-      ],
-      "_type": "hubspot_user",
-      "archived": false,
-      "createdOn": 1626184666581,
-      "displayName": "viragsf@gmail.com",
-      "email": "viragsf@gmail.com",
-      "firstName": "",
-      "id": "90089236",
-      "lastName": "",
-      "name": "viragsf@gmail.com",
-      "updatedOn": 1626184666581,
-      "userId": 25516621,
-      "username": "viragsf@gmail.com",
-    },
-  ],
+  "collectedEntities": Array [],
   "collectedRelationships": Array [],
-  "encounteredTypes": Array [
-    "hubspot_user",
-  ],
-  "numCollectedEntities": 2,
+  "encounteredTypes": Array [],
+  "numCollectedEntities": 0,
   "numCollectedRelationships": 0,
 }
 `;
