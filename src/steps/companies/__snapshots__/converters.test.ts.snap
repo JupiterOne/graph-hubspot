@@ -10,27 +10,35 @@ Object {
     Object {
       "name": "default",
       "rawData": Object {
-        "archived": false,
-        "id": "84106264",
+        "companyId": 84106264,
+        "isDeleted": false,
+        "portalId": 21406264,
         "properties": Object {
-          "domain": "awesomecompanydomain.tld",
-          "name": "Awesome company",
-          "website": "awesomecompanydomain.tld",
+          "domain": Object {
+            "value": "awesomecompanydomain.tld",
+          },
+          "name": Object {
+            "value": "Awesome company",
+          },
+          "website": Object {
+            "value": "awesomecompanydomain.tld",
+          },
         },
       },
     },
   ],
   "_type": "hubspot_company",
   "archived": false,
-  "city": "",
+  "city": undefined,
   "createdOn": undefined,
   "displayName": "Awesome company",
   "domain": "awesomecompanydomain.tld",
   "host": "awesomecompanydomain.tld",
   "id": "84106264",
-  "industry": "",
+  "industry": undefined,
   "name": "Awesome company",
-  "ownerId": "",
+  "ownerId": undefined,
+  "portalId": 21406264,
   "public": false,
   "updatedOn": undefined,
 }

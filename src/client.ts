@@ -1,37 +1,21 @@
 import {
   ExecutionHistory,
-  // IntegrationProviderAPIError,
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 import * as hubspot from '@hubspot/api-client';
-// import { URL, URLSearchParams } from 'url';
-// import fetch, { RequestInit } from 'node-fetch';
 import { IntegrationConfig } from './config';
-import {
-  // Company,
-  // Owner,
-  ResourceIteratee,
-  Role,
-  User,
-  // HubspotPaginatedResponse,
-  // HubspotRequestConfig,
-  // LegacyHubspotPaginatedResponse,
-} from './types';
+import { Company, ResourceIteratee, Role, User } from './types';
 
 export class APIClient {
-  // private readonly apiBaseUrl: string;
-  // private readonly oauthAccessToken: string;
-  // private readonly executionHistory: ExecutionHistory;
-  // private readonly maxPerPage = 30;
+  private readonly executionHistory: ExecutionHistory;
   readonly hubspotClient: hubspot.Client;
+  private readonly maxPerPage = 30;
 
   constructor(
     readonly integrationConfig: IntegrationConfig,
     executionHistory: ExecutionHistory,
   ) {
-    // this.apiBaseUrl = integrationConfig.apiBaseUrl;
-    // this.oauthAccessToken = integrationConfig.oauthAccessToken;
-    // this.executionHistory = executionHistory;
+    this.executionHistory = executionHistory;
     this.hubspotClient = new hubspot.Client({
       accessToken: integrationConfig.oauthAccessToken,
     });
@@ -66,14 +50,34 @@ export class APIClient {
       });
   }
 
-  public async fetchUser(userId: string, iteratee: ResourceIteratee<User>) {
+  public async fetchUser(
+    userId: string,
+    callback: (user: User) => Promise<void>,
+  ) {
     await this.hubspotClient
       .apiRequest({
         method: 'GET',
         path: `/settings/v3/users/${userId}`,
       })
       .then(async (res) => {
-        await iteratee(res.body);
+        await callback(res.body);
+      });
+  }
+
+  public async iterateCompanies(iteratee: ResourceIteratee<Company>) {
+    await this.hubspotClient
+      .apiRequest({
+        method: 'GET',
+        path: `/companies/v2/companies/recent/modified`,
+        body: {
+          since: this.executionHistory.lastSuccessful?.startedOn || 0,
+          count: this.maxPerPage,
+        },
+      })
+      .then((res) => {
+        res.body.results.forEach(async (company) => {
+          await iteratee(company);
+        });
       });
   }
 }

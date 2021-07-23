@@ -14,8 +14,8 @@ export async function fetchCompanies({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config, executionHistory);
-  const res = await apiClient.hubspotClient.crm.companies.getAll();
-  res.forEach(async (company) => {
+
+  await apiClient.iterateCompanies(async (company) => {
     await jobState.addEntity(createCompanyEntity(company as Company));
   });
 }

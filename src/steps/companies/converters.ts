@@ -10,21 +10,22 @@ export function createCompanyEntity(data: Company) {
       assign: {
         _class: Entities.COMPANY._class,
         _type: Entities.COMPANY._type,
-        _key: getEntityKey(Entities.COMPANY, data.id),
-        id: data.id,
-        name: data.properties.name,
-        archived: data.archived,
-        host: data.properties.website || '',
-        domain: data.properties.domain || '',
-        city: data.properties.city || '',
-        industry: data.properties.industry || '',
-        ownerId: data.properties.hubspot_owner_id || '',
-        public: data.properties.is_public === 'true',
-        createdOn: data.properties.createdate
-          ? parseInt(data.properties.createdate, 10)
+        _key: getEntityKey(Entities.COMPANY, data.companyId.toString()),
+        id: data.companyId.toString(),
+        portalId: data.portalId,
+        name: data.properties.name?.value,
+        archived: data.isDeleted,
+        host: data.properties.website?.value,
+        domain: data.properties.domain?.value,
+        city: data.properties.city?.value,
+        industry: data.properties.industry?.value,
+        ownerId: data.properties.hubspot_owner_id?.value,
+        public: data.properties.is_public?.value === 'true',
+        createdOn: data.properties.createdate?.value
+          ? parseInt(data.properties.createdate?.value, 10)
           : undefined,
-        updatedOn: data.properties.hs_lastmodifieddate
-          ? parseInt(data.properties.hs_lastmodifieddate, 10)
+        updatedOn: data.properties.hs_lastmodifieddate?.value
+          ? parseInt(data.properties.hs_lastmodifieddate?.value, 10)
           : undefined,
       },
     },

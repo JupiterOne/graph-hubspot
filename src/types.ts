@@ -51,20 +51,39 @@ export interface Team {
 }
 
 export interface Company {
-  id: string;
+  companyId: number;
+  portalId: number;
   properties: CompanyProperties;
-  archived: boolean;
+  isDeleted: boolean;
 }
 export interface CompanyProperties {
-  name?: string;
-  website?: string;
-  domain?: string;
-  city?: string;
-  industry?: string;
-  hubspot_owner_id?: string;
-  is_public?: string;
-  createdate?: string;
-  hs_lastmodifieddate?: string;
+  name?: {
+    value: string;
+  };
+  website?: {
+    value: string;
+  };
+  domain?: {
+    value: string;
+  };
+  city?: {
+    value: string;
+  };
+  industry?: {
+    value: string;
+  };
+  hubspot_owner_id?: {
+    value: string;
+  };
+  is_public?: {
+    value: string;
+  };
+  createdate?: {
+    value: string;
+  };
+  hs_lastmodifieddate?: {
+    value: string;
+  };
   [key: string]: any;
 }
 
