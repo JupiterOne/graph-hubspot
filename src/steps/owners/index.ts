@@ -28,18 +28,21 @@ export async function fetchOwners({
 
     if (owner.userId) {
       await apiClient.fetchUser(owner.userId.toString(), async (user) => {
-        const roleEntity = await jobState.findEntity(
-          getEntityKey(Entities.ROLE, user.id.toString()),
-        );
-
-        if (roleEntity && userEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.ASSIGNED,
-              from: userEntity,
-              to: roleEntity,
-            }),
+        const { roleId } = user;
+        if (roleId) {
+          const roleEntity = await jobState.findEntity(
+            getEntityKey(Entities.ROLE, user.roleId.toString()),
           );
+
+          if (roleEntity && userEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.ASSIGNED,
+                from: userEntity,
+                to: roleEntity,
+              }),
+            );
+          }
         }
       });
     }

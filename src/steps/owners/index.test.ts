@@ -5,6 +5,7 @@ import {
 import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
 import * as owner from '.';
+import * as role from '../roles';
 import { Relationships } from '../constants';
 import { setupHubspotRecording } from '../../../test/recording';
 
@@ -27,6 +28,7 @@ describe('#fetchOwners', () => {
       instanceConfig: createIntegrationConfig(),
     });
 
+    await role.fetchRoles(context);
     await owner.fetchOwners(context);
 
     expect({
@@ -73,7 +75,7 @@ describe('#fetchOwners', () => {
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
-          _class: { const: 'USER' },
+          _class: { const: 'ASSIGNED' },
           _type: {
             const: 'hubspot_user_assigned_role',
           },

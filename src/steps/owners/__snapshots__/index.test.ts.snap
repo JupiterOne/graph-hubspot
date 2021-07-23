@@ -5,6 +5,72 @@ Object {
   "collectedEntities": Array [
     Object {
       "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "hubspot_role:95124 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "95124",
+            "name": "TestRole",
+            "requiresBillingWrite": false,
+          },
+        },
+      ],
+      "_type": "hubspot_role",
+      "createdOn": undefined,
+      "displayName": "TestRole",
+      "id": "95124",
+      "name": "TestRole",
+      "requiresBillingWrite": false,
+    },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "hubspot_role:95389 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "95389",
+            "name": "SuperRole",
+            "requiresBillingWrite": true,
+          },
+        },
+      ],
+      "_type": "hubspot_role",
+      "createdOn": undefined,
+      "displayName": "SuperRole",
+      "id": "95389",
+      "name": "SuperRole",
+      "requiresBillingWrite": true,
+    },
+    Object {
+      "_class": Array [
+        "AccessRole",
+      ],
+      "_key": "hubspot_role:96735 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "96735",
+            "name": "LimitedRole",
+            "requiresBillingWrite": false,
+          },
+        },
+      ],
+      "_type": "hubspot_role",
+      "createdOn": undefined,
+      "displayName": "LimitedRole",
+      "id": "96735",
+      "name": "LimitedRole",
+      "requiresBillingWrite": false,
+    },
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "hubspot_user:88812444 ",
@@ -84,11 +150,22 @@ Object {
       "username": "pgrilaga@gmail.com",
     },
   ],
-  "collectedRelationships": Array [],
-  "encounteredTypes": Array [
-    "hubspot_user",
+  "collectedRelationships": Array [
+    Object {
+      "_class": "ASSIGNED",
+      "_fromEntityKey": "hubspot_user:88814770 ",
+      "_key": "hubspot_user:88814770 |assigned|hubspot_role:96735 ",
+      "_toEntityKey": "hubspot_role:96735 ",
+      "_type": "hubspot_user_assigned_role",
+      "displayName": "ASSIGNED",
+    },
   ],
-  "numCollectedEntities": 2,
-  "numCollectedRelationships": 0,
+  "encounteredTypes": Array [
+    "hubspot_role",
+    "hubspot_user",
+    "hubspot_user_assigned_role",
+  ],
+  "numCollectedEntities": 5,
+  "numCollectedRelationships": 1,
 }
 `;
