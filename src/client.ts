@@ -66,12 +66,15 @@ export class APIClient {
       });
   }
 
-  public async fetchUser(userId: string): Promise<User> {
-    const res = await this.hubspotClient.apiRequest({
-      method: 'GET',
-      path: `/settings/v3/users/${userId}`,
-    });
-    return res.body;
+  public async fetchUser(userId: string, iteratee: ResourceIteratee<User>) {
+    await this.hubspotClient
+      .apiRequest({
+        method: 'GET',
+        path: `/settings/v3/users/${userId}`,
+      })
+      .then(async (res) => {
+        await iteratee(res.body);
+      });
   }
 }
 

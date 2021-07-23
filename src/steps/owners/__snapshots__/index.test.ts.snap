@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchOwners should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_user:88812444 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "Wed Jul 07 2021 21:02:40 GMT+0800 (Philippine Standard Time)",
+            "email": "pgilaga@gmail.com",
+            "firstName": "Paul",
+            "id": "88812444",
+            "lastName": "Ilaga",
+            "teams": Array [
+              PublicTeam {
+                "id": "3785345",
+                "membership": undefined,
+                "name": "Test team 1",
+              },
+            ],
+            "updatedAt": "Wed Jul 07 2021 21:02:40 GMT+0800 (Philippine Standard Time)",
+            "userId": 25387116,
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "archived": false,
+      "createdOn": 1625662960000,
+      "displayName": "Paul Ilaga",
+      "email": "pgilaga@gmail.com",
+      "firstName": "Paul",
+      "id": "88812444",
+      "lastName": "Ilaga",
+      "name": "Paul Ilaga",
+      "updatedOn": 1625662960000,
+      "userId": 25387116,
+      "username": "pgilaga@gmail.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_user:88814770 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "archived": false,
+            "createdAt": "Wed Jul 07 2021 21:06:23 GMT+0800 (Philippine Standard Time)",
+            "email": "pgrilaga@gmail.com",
+            "firstName": "Paul",
+            "id": "88814770",
+            "lastName": "Test",
+            "teams": Array [
+              PublicTeam {
+                "id": "3785345",
+                "membership": undefined,
+                "name": "Test team 1",
+              },
+            ],
+            "updatedAt": "Thu Jul 08 2021 12:31:43 GMT+0800 (Philippine Standard Time)",
+            "userId": 25444566,
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "archived": false,
+      "createdOn": 1625663183000,
+      "displayName": "Paul Test",
+      "email": "pgrilaga@gmail.com",
+      "firstName": "Paul",
+      "id": "88814770",
+      "lastName": "Test",
+      "name": "Paul Test",
+      "updatedOn": 1625718703000,
+      "userId": 25444566,
+      "username": "pgrilaga@gmail.com",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_user",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;

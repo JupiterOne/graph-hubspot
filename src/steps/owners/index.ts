@@ -18,33 +18,32 @@ export async function fetchOwners({
   const apiClient = createAPIClient(instance.config, executionHistory);
   const res = await apiClient.hubspotClient.crm.owners.defaultApi.getPage();
 
-  res.body.results.forEach(async (owner) => {
+  for (const owner of res.body.results) {
+    const userEntity = createUserEntity({
+      ...owner,
+      createdAt: owner.createdAt.toString(),
+      updatedAt: owner.updatedAt.toString(),
+    });
+    await jobState.addEntity(userEntity);
+
     if (owner.userId) {
-      const { roleId } = await apiClient.fetchUser(owner.userId.toString());
-
-      const roleEntity = await jobState.findEntity(
-        getEntityKey(Entities.ROLE, roleId),
-      );
-
-      const userEntity = createUserEntity({
-        ...owner,
-        createdAt: owner.createdAt.toString(),
-        updatedAt: owner.updatedAt.toString(),
-      });
-
-      await jobState.addEntity(userEntity);
-
-      if (roleEntity && userEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.ASSIGNED,
-            from: userEntity,
-            to: roleEntity,
-          }),
+      await apiClient.fetchUser(owner.userId.toString(), async (user) => {
+        const roleEntity = await jobState.findEntity(
+          getEntityKey(Entities.ROLE, user.id.toString()),
         );
-      }
+
+        if (roleEntity && userEntity) {
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.ASSIGNED,
+              from: userEntity,
+              to: roleEntity,
+            }),
+          );
+        }
+      });
     }
-  });
+  }
 }
 
 export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
