@@ -3,6 +3,19 @@ import { Company } from '../../types';
 import { getEntityKey } from '../../utils';
 import { Entities } from '../constants';
 
+function validURL(str) {
+  const pattern = new RegExp(
+    '^(https?:\\/\\/)' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i',
+  ); // fragment locator
+  return !!pattern.test(str);
+}
+
 export function createCompanyEntity(data: Company) {
   return createIntegrationEntity({
     entityData: {
@@ -21,7 +34,9 @@ export function createCompanyEntity(data: Company) {
         industry: data.properties.industry?.value,
         ownerId: data.properties.hubspot_owner_id?.value,
         public: data.properties.is_public?.value === 'true',
-        website: `http://${data.properties.website?.value}`,
+        website: validURL(data.properties.website?.value)
+          ? data.properties.website?.value
+          : undefined,
         external: !!data.properties.website?.value,
         createdOn: data.properties.createdate?.value
           ? parseInt(data.properties.createdate?.value, 10)

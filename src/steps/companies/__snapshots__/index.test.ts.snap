@@ -400,7 +400,7 @@ Object {
       "portalId": 20378619,
       "public": false,
       "updatedOn": 1626154558142,
-      "website": "http://undefined",
+      "website": undefined,
     },
     Object {
       "_class": Array [
@@ -1081,7 +1081,7 @@ Object {
       "portalId": 20378619,
       "public": true,
       "updatedOn": 1625721003397,
-      "website": "http://hubspot.com",
+      "website": undefined,
     },
   ],
   "collectedRelationships": Array [],

@@ -42,6 +42,6 @@ Object {
   "portalId": 21406264,
   "public": false,
   "updatedOn": undefined,
-  "website": "http://awesomecompanydomain.tld",
+  "website": undefined,
 }
 `;
