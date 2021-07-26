@@ -21,6 +21,8 @@ export function createCompanyEntity(data: Company) {
         industry: data.properties.industry?.value,
         ownerId: data.properties.hubspot_owner_id?.value,
         public: data.properties.is_public?.value === 'true',
+        website: `http://${data.properties.website?.value}`,
+        external: !!data.properties.website?.value,
         createdOn: data.properties.createdate?.value
           ? parseInt(data.properties.createdate?.value, 10)
           : undefined,

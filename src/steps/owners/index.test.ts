@@ -62,6 +62,7 @@ describe('#fetchOwners', () => {
           userId: { type: 'number' },
           username: { type: 'string' },
           archived: { type: 'boolean' },
+          active: { type: 'boolean' },
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
         },

@@ -66,6 +66,8 @@ describe('#fetchCompanies', () => {
           public: { type: 'boolean' },
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
+          website: { type: 'string' },
+          external: { type: 'boolean' },
         },
       },
     });

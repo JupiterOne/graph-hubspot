@@ -22,6 +22,7 @@ Object {
     },
   ],
   "_type": "hubspot_user",
+  "active": true,
   "archived": false,
   "createdOn": 1623699526907,
   "displayName": "John Doe",

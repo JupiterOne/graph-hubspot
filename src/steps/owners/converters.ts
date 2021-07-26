@@ -24,6 +24,7 @@ export function createUserEntity(data: Owner) {
         email: data.email,
         username: data.email,
         archived: data.archived,
+        active: !data.archived,
         userId: data.userId,
         createdOn: parseTimePropertyValue(data.createdAt),
         updatedOn: parseTimePropertyValue(data.updatedAt),

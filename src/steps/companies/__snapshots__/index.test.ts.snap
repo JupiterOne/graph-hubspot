@@ -391,6 +391,7 @@ Object {
       "createdOn": 1626154495981,
       "displayName": "Test company",
       "domain": undefined,
+      "external": false,
       "host": undefined,
       "id": "6558739580",
       "industry": undefined,
@@ -399,6 +400,7 @@ Object {
       "portalId": 20378619,
       "public": false,
       "updatedOn": 1626154558142,
+      "website": "http://undefined",
     },
     Object {
       "_class": Array [
@@ -1070,6 +1072,7 @@ Object {
       "createdOn": 1625720941918,
       "displayName": "HubSpot, Inc.",
       "domain": "hubspot.com",
+      "external": true,
       "host": "hubspot.com",
       "id": "6534491450",
       "industry": "COMPUTER_SOFTWARE",
@@ -1078,6 +1081,7 @@ Object {
       "portalId": 20378619,
       "public": true,
       "updatedOn": 1625721003397,
+      "website": "http://hubspot.com",
     },
   ],
   "collectedRelationships": Array [],
