@@ -91,6 +91,7 @@ export interface User {
   id: string;
   email: string;
   roleId: string;
+  primaryTeamId: string;
 }
 
 export interface Role {

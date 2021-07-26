@@ -1,8 +1,8 @@
 import { getMockOwner } from '../../../test/mocks';
-import { createUserEntity } from './converters';
+import { createOwnerEntity } from './converters';
 
-describe('#createUserEntity', () => {
+describe('#createOwnerEntity', () => {
   test('should convert to entity', () => {
-    expect(createUserEntity(getMockOwner())).toMatchSnapshot();
+    expect(createOwnerEntity(getMockOwner())).toMatchSnapshot();
   });
 });

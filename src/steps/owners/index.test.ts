@@ -6,6 +6,7 @@ import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
 import * as owner from '.';
 import * as role from '../roles';
+import * as user from '../users';
 import { Relationships } from '../constants';
 import { setupHubspotRecording } from '../../../test/recording';
 
@@ -29,6 +30,7 @@ describe('#fetchOwners', () => {
     });
 
     await role.fetchRoles(context);
+    await user.fetchUsers(context);
     await owner.fetchOwners(context);
 
     expect({
@@ -40,7 +42,7 @@ describe('#fetchOwners', () => {
     }).toMatchSnapshot();
 
     const owners = context.jobState.collectedEntities.filter((e) =>
-      e._class.includes('User'),
+      e._type.includes('hubspot_owner'),
     );
 
     expect(owners.length).toBeGreaterThan(0);
@@ -53,7 +55,7 @@ describe('#fetchOwners', () => {
             type: 'array',
             items: { type: 'object' },
           },
-          _type: { const: 'hubspot_user' },
+          _type: { const: 'hubspot_owner' },
           id: { type: 'string' },
           name: { type: 'string' },
           firstName: { type: 'string' },
@@ -79,6 +81,21 @@ describe('#fetchOwners', () => {
           _class: { const: 'ASSIGNED' },
           _type: {
             const: 'hubspot_user_assigned_role',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === Relationships.OWNER_IS_USER._type,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'IS' },
+          _type: {
+            const: 'hubspot_owner_is_user',
           },
         },
       },

@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#createUserEntity should convert to entity 1`] = `
+exports[`#createOwnerEntity should convert to entity 1`] = `
 Object {
   "_class": Array [
     "User",
   ],
-  "_key": "hubspot_user:84106262 ",
+  "_key": "hubspot_owner:84106262 ",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -21,7 +21,7 @@ Object {
       },
     },
   ],
-  "_type": "hubspot_user",
+  "_type": "hubspot_owner",
   "active": true,
   "archived": false,
   "createdOn": 1623699526907,

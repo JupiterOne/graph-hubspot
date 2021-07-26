@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchUsers should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_user:25387116 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "email": "pgilaga@gmail.com",
+            "id": "25387116",
+            "primaryTeamId": "3785345",
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "createdOn": undefined,
+      "displayName": "pgilaga@gmail.com",
+      "email": "pgilaga@gmail.com",
+      "id": "25387116",
+      "name": "pgilaga@gmail.com",
+      "primaryTeamId": "3785345",
+      "roleId": undefined,
+      "username": "pgilaga@gmail.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_user:25444566 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "email": "pgrilaga@gmail.com",
+            "id": "25444566",
+            "primaryTeamId": "3785345",
+            "roleId": "96735",
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "createdOn": undefined,
+      "displayName": "pgrilaga@gmail.com",
+      "email": "pgrilaga@gmail.com",
+      "id": "25444566",
+      "name": "pgrilaga@gmail.com",
+      "primaryTeamId": "3785345",
+      "roleId": "96735",
+      "username": "pgrilaga@gmail.com",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "hubspot_user",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 0,
+}
+`;

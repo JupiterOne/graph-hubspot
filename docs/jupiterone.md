@@ -109,6 +109,7 @@ The following relationships are created/mapped:
 
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
+| `hubspot_owner`       | **IS**                | `hubspot_user`        |
 | `hubspot_user`        | **ASSIGNED**          | `hubspot_role`        |
 
 <!--

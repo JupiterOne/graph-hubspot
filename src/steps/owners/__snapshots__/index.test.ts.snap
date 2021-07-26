@@ -73,7 +73,58 @@ Object {
       "_class": Array [
         "User",
       ],
-      "_key": "hubspot_user:88812444 ",
+      "_key": "hubspot_user:25387116 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "email": "pgilaga@gmail.com",
+            "id": "25387116",
+            "primaryTeamId": "3785345",
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "createdOn": undefined,
+      "displayName": "pgilaga@gmail.com",
+      "email": "pgilaga@gmail.com",
+      "id": "25387116",
+      "name": "pgilaga@gmail.com",
+      "primaryTeamId": "3785345",
+      "roleId": undefined,
+      "username": "pgilaga@gmail.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_user:25444566 ",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "email": "pgrilaga@gmail.com",
+            "id": "25444566",
+            "primaryTeamId": "3785345",
+            "roleId": "96735",
+          },
+        },
+      ],
+      "_type": "hubspot_user",
+      "createdOn": undefined,
+      "displayName": "pgrilaga@gmail.com",
+      "email": "pgrilaga@gmail.com",
+      "id": "25444566",
+      "name": "pgrilaga@gmail.com",
+      "primaryTeamId": "3785345",
+      "roleId": "96735",
+      "username": "pgrilaga@gmail.com",
+    },
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "hubspot_owner:88812444 ",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -96,7 +147,7 @@ Object {
           },
         },
       ],
-      "_type": "hubspot_user",
+      "_type": "hubspot_owner",
       "active": true,
       "archived": false,
       "createdOn": 1625662960000,
@@ -114,7 +165,7 @@ Object {
       "_class": Array [
         "User",
       ],
-      "_key": "hubspot_user:88814770 ",
+      "_key": "hubspot_owner:88814770 ",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -137,7 +188,7 @@ Object {
           },
         },
       ],
-      "_type": "hubspot_user",
+      "_type": "hubspot_owner",
       "active": true,
       "archived": false,
       "createdOn": 1625663183000,
@@ -154,9 +205,25 @@ Object {
   ],
   "collectedRelationships": Array [
     Object {
+      "_class": "IS",
+      "_fromEntityKey": "hubspot_owner:88812444 ",
+      "_key": "hubspot_owner:88812444 |is|hubspot_user:25387116 ",
+      "_toEntityKey": "hubspot_user:25387116 ",
+      "_type": "hubspot_owner_is_user",
+      "displayName": "IS",
+    },
+    Object {
+      "_class": "IS",
+      "_fromEntityKey": "hubspot_owner:88814770 ",
+      "_key": "hubspot_owner:88814770 |is|hubspot_user:25444566 ",
+      "_toEntityKey": "hubspot_user:25444566 ",
+      "_type": "hubspot_owner_is_user",
+      "displayName": "IS",
+    },
+    Object {
       "_class": "ASSIGNED",
-      "_fromEntityKey": "hubspot_user:88814770 ",
-      "_key": "hubspot_user:88814770 |assigned|hubspot_role:96735 ",
+      "_fromEntityKey": "hubspot_user:25444566 ",
+      "_key": "hubspot_user:25444566 |assigned|hubspot_role:96735 ",
       "_toEntityKey": "hubspot_role:96735 ",
       "_type": "hubspot_user_assigned_role",
       "displayName": "ASSIGNED",
@@ -165,9 +232,11 @@ Object {
   "encounteredTypes": Array [
     "hubspot_role",
     "hubspot_user",
+    "hubspot_owner",
+    "hubspot_owner_is_user",
     "hubspot_user_assigned_role",
   ],
-  "numCollectedEntities": 5,
-  "numCollectedRelationships": 1,
+  "numCollectedEntities": 7,
+  "numCollectedRelationships": 3,
 }
 `;
