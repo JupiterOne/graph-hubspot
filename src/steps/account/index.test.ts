@@ -9,33 +9,12 @@ import { Entities } from '../constants';
 import { setupHubspotRecording } from '../../../test/recording';
 
 describe('#fetchAccount', () => {
-  let recording: Recording;
-
-  beforeEach(() => {
-    recording = setupHubspotRecording({
-      directory: __dirname,
-      name: 'fetchAccount',
-    });
-  });
-
-  afterEach(async () => {
-    await recording.stop();
-  });
-
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: createIntegrationConfig(),
     });
 
     await account.fetchAccount(context);
-
-    expect({
-      numCollectedEntities: context.jobState.collectedEntities.length,
-      numCollectedRelationships: context.jobState.collectedRelationships.length,
-      collectedEntities: context.jobState.collectedEntities,
-      collectedRelationships: context.jobState.collectedRelationships,
-      encounteredTypes: context.jobState.encounteredTypes,
-    }).toMatchSnapshot();
 
     const companies = context.jobState.collectedEntities.filter((e) =>
       e._class.includes(Entities.ACCOUNT._class as string),
