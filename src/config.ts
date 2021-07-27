@@ -15,6 +15,10 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
+  appId: {
+    type: 'string',
+    mask: true,
+  },
 };
 
 /**
@@ -31,6 +35,11 @@ export interface IntegrationConfig extends IntegrationInstanceConfig {
    * Hubspot API base url
    */
   apiBaseUrl: string;
+
+  /**
+   * Hubspot API app ID
+   */
+  appId: string;
 }
 
 export async function validateInvocation(

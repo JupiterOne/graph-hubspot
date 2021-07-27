@@ -99,7 +99,9 @@ The following entities are created:
 
 | Resources       | Entity `_type`    | Entity `_class` |
 | --------------- | ----------------- | --------------- |
+| HubSpot Account | `hubspot_account` | `Account`       |
 | HubSpot Company | `hubspot_company` | `Organization`  |
+| HubSpot Owner   | `hubspot_owner`   | `User`          |
 | HubSpot Role    | `hubspot_role`    | `AccessRole`    |
 | HubSpot User    | `hubspot_user`    | `User`          |
 
@@ -109,6 +111,9 @@ The following relationships are created/mapped:
 
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
+| `hubspot_account`     | **HAS**               | `hubspot_company`     |
+| `hubspot_account`     | **HAS**               | `hubspot_role`        |
+| `hubspot_account`     | **HAS**               | `hubspot_user`        |
 | `hubspot_owner`       | **IS**                | `hubspot_user`        |
 | `hubspot_user`        | **ASSIGNED**          | `hubspot_role`        |
 
