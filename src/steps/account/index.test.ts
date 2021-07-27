@@ -1,12 +1,8 @@
-import {
-  createMockStepExecutionContext,
-  Recording,
-} from '@jupiterone/integration-sdk-testing';
+import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import * as account from '.';
 import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
 import { Entities } from '../constants';
-import { setupHubspotRecording } from '../../../test/recording';
 
 describe('#fetchAccount', () => {
   test('should collect data', async () => {
