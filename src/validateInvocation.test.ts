@@ -33,6 +33,7 @@ it('auth error', async () => {
       oauthAccessToken: 'INVALID',
       apiBaseUrl: 'https://api.hubapi.com',
       appId: '123123',
+      oauthAuthorizedScopes: 'scope-1,scope-2',
     } as IntegrationConfig,
   });
 

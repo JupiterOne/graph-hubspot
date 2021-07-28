@@ -25,7 +25,6 @@ describe('#fetchUsers', () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: createIntegrationConfig(),
     });
-
     await user.fetchUsers(context);
 
     expect({
