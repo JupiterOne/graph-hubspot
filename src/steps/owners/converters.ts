@@ -1,19 +1,19 @@
+import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners/api';
 import {
   createIntegrationEntity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { Owner } from '../../types';
 import { getEntityKey } from '../../utils';
 import { Entities } from '../constants';
 
-export function createOwnerEntity(data: Owner) {
+export function createOwnerEntity(data: PublicOwner) {
   return createIntegrationEntity({
     entityData: {
       source: data,
       assign: {
-        _class: Entities.OWNER._class,
-        _type: Entities.OWNER._type,
-        _key: getEntityKey(Entities.OWNER, data.id),
+        _class: Entities.USER._class,
+        _type: Entities.USER._type,
+        _key: getEntityKey(Entities.USER, data.id),
         id: data.id,
         name:
           data.firstName && data.lastName

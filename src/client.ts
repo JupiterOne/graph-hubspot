@@ -1,5 +1,6 @@
 import {
   ExecutionHistory,
+  IntegrationProviderAPIError,
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 import * as hubspot from '@hubspot/api-client';
@@ -21,6 +22,25 @@ export class APIClient {
     });
   }
 
+  async apiRequestWithErrorHandling<T>(path: string, body?: any): Promise<T[]> {
+    try {
+      const response = await this.hubspotClient.apiRequest({
+        method: 'GET',
+        path,
+        body,
+      });
+
+      return response.body.results;
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: new Error(err.message),
+        endpoint: path,
+        status: err.statusCode,
+        statusText: err.message,
+      });
+    }
+  }
+
   public async verifyAuthentication(): Promise<void> {
     try {
       const tokens = await this.hubspotClient.crm.owners.defaultApi.getPage();
@@ -30,7 +50,7 @@ export class APIClient {
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: `/crm/v3/owners`,
+        endpoint: '/crm/v3/owners',
         status: err.status,
         statusText: err.statusText,
       });
@@ -38,46 +58,64 @@ export class APIClient {
   }
 
   public async iterateRoles(iteratee: ResourceIteratee<Role>) {
-    await this.hubspotClient
-      .apiRequest({
-        method: 'GET',
-        path: '/settings/v3/users/roles',
-      })
-      .then((res) => {
-        res.body.results.forEach(async (role) => {
-          await iteratee(role as Role);
-        });
-      });
+    const roles = await this.apiRequestWithErrorHandling<Role>(
+      '/settings/v3/users/roles',
+    );
+
+    for (const role of roles || []) {
+      await iteratee(role);
+    }
   }
 
   public async iterateUsers(iteratee: ResourceIteratee<User>) {
-    await this.hubspotClient
-      .apiRequest({
-        method: 'GET',
-        path: `/settings/v3/users/`,
-      })
-      .then((res) => {
-        res.body.results.forEach(async (user) => {
-          await iteratee(user);
-        });
-      });
+    const users = await this.apiRequestWithErrorHandling<User>(
+      '/settings/v3/users/',
+    );
+
+    for (const user of users || []) {
+      await iteratee(user);
+    }
   }
 
   public async iterateCompanies(iteratee: ResourceIteratee<Company>) {
-    await this.hubspotClient
-      .apiRequest({
+    const companies = await this.apiRequestWithErrorHandling<Company>(
+      '/companies/v2/companies/recent/modified',
+      {
+        since: this.executionHistory.lastSuccessful?.startedOn || 0,
+        count: this.maxPerPage,
+      },
+    );
+
+    for (const company of companies || []) {
+      await iteratee(company);
+    }
+  }
+
+  public async fetchUser(userId: string): Promise<User> {
+    try {
+      const res = await this.hubspotClient.apiRequest({
         method: 'GET',
-        path: `/companies/v2/companies/recent/modified`,
-        body: {
-          since: this.executionHistory.lastSuccessful?.startedOn || 0,
-          count: this.maxPerPage,
-        },
-      })
-      .then((res) => {
-        res.body.results.forEach(async (company) => {
-          await iteratee(company);
-        });
+        path: `/settings/v3/users/${userId}`,
       });
+
+      return res.body;
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: new Error(err.message),
+        endpoint: `/settings/v3/users/${userId}`,
+        status: err.statusCode,
+        statusText: err.message,
+      });
+    }
+  }
+
+  public async iterateOwners(
+    iteratee: ResourceIteratee<hubspot.ownersModels.PublicOwner>,
+  ) {
+    const res = await this.hubspotClient.crm.owners.defaultApi.getPage();
+    for (const owner of res.body.results) {
+      await iteratee(owner);
+    }
   }
 }
 

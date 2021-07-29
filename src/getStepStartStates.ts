@@ -14,7 +14,6 @@ import { accountSteps } from './steps/account';
 import { companySteps } from './steps/companies';
 import { ownerSteps } from './steps/owners';
 import { roleSteps } from './steps/roles';
-import { userSteps } from './steps/users';
 
 export default function (
   executionContext: IntegrationExecutionContext<IntegrationConfig>,
@@ -29,7 +28,7 @@ export default function (
       disabled: !isSuperset(scopes, COMPANY_SCOPES),
     },
     [ownerSteps[0].id]: { disabled: !isSuperset(scopes, OWNER_SCOPES) },
+    [ownerSteps[1].id]: { disabled: !isSuperset(scopes, USER_SCOPES) },
     [roleSteps[0].id]: { disabled: !isSuperset(scopes, ROLE_SCOPES) },
-    [userSteps[0].id]: { disabled: !isSuperset(scopes, USER_SCOPES) },
   };
 }
