@@ -12,6 +12,7 @@ class Database {
       db.remove({}, { multi: true }, (err, n) => {
         if (err) {
           reject(reject);
+          return;
         }
         resolve(n);
       });
@@ -23,6 +24,7 @@ class Database {
       db.insert(payload, (err, doc) => {
         if (err) {
           reject(err);
+          return;
         }
         resolve(doc);
       });
@@ -34,6 +36,7 @@ class Database {
       db.find({}, (err, docs) => {
         if (err) {
           reject(err);
+          return;
         }
         resolve(docs.length > 0 ? docs[0] : undefined);
       });

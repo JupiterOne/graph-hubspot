@@ -33,6 +33,7 @@ Object {
   "createdOn": undefined,
   "displayName": "Awesome company",
   "domain": "awesomecompanydomain.tld",
+  "external": true,
   "host": "awesomecompanydomain.tld",
   "id": "84106264",
   "industry": undefined,
@@ -41,5 +42,6 @@ Object {
   "portalId": 21406264,
   "public": false,
   "updatedOn": undefined,
+  "website": undefined,
 }
 `;

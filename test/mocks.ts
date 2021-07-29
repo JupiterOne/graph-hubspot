@@ -1,15 +1,26 @@
-import { Company, Owner, Role } from '../src/types';
+import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners/api';
+import { Company, Role, User } from '../src/types';
 
-export function getMockOwner(partial?: Partial<Owner>): Owner {
+export function getMockOwner(partial?: Partial<PublicOwner>): PublicOwner {
   return {
     id: '84106262',
     email: 'user@example.com',
     firstName: 'John',
     lastName: 'Doe',
     userId: 25150127,
-    createdAt: '2021-06-14T19:38:46.907Z',
-    updatedAt: '2021-06-14T19:38:46.907Z',
+    createdAt: new Date('2021-06-14T19:38:46.907Z'),
+    updatedAt: new Date('2021-06-14T19:38:46.907Z'),
     archived: false,
+    ...partial,
+  };
+}
+
+export function getMockUser(partial?: Partial<User>): User {
+  return {
+    id: '25412366',
+    email: 'user@email.com',
+    roleId: '12312',
+    primaryTeamId: '3712345',
     ...partial,
   };
 }

@@ -8,7 +8,7 @@ import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { getEntityKey } from '../../utils';
 import { Entities, IntegrationSteps, Relationships } from '../constants';
-import { createUserEntity } from './converters';
+import { createOwnerEntity } from './converters';
 
 export async function fetchOwners({
   instance,
@@ -16,25 +16,54 @@ export async function fetchOwners({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config, executionHistory);
+  const accountEntity = await jobState.findEntity(
+    getEntityKey(Entities.ACCOUNT, instance.config.appId),
+  );
+
   await apiClient.iterateOwners(async (owner) => {
-    const { roleId } = await apiClient.fetchUser(owner.userId.toString());
+    const ownerEntity = createOwnerEntity(owner);
+    await jobState.addEntity(ownerEntity);
 
-    const roleEntity = await jobState.findEntity(
-      getEntityKey(Entities.ROLE, roleId),
-    );
-    const userEntity = createUserEntity(owner);
-    await jobState.addEntity(userEntity);
-
-    if (roleEntity && userEntity) {
+    if (accountEntity && ownerEntity) {
       await jobState.addRelationship(
         createDirectRelationship({
-          _class: RelationshipClass.ASSIGNED,
-          from: userEntity,
-          to: roleEntity,
+          _class: RelationshipClass.HAS,
+          from: accountEntity,
+          to: ownerEntity,
         }),
       );
     }
   });
+}
+
+export async function buildOwnersRolesRelationships({
+  instance,
+  executionHistory,
+  jobState,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  const apiClient = createAPIClient(instance.config, executionHistory);
+
+  await jobState.iterateEntities(
+    { _type: Entities.USER._type },
+    async (ownerEntity) => {
+      const { roleId } = await apiClient.fetchUser(
+        ownerEntity.userId as string,
+      );
+      const roleEntity = await jobState.findEntity(
+        getEntityKey(Entities.ROLE, roleId),
+      );
+
+      if (roleEntity && ownerEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            from: ownerEntity,
+            to: roleEntity,
+          }),
+        );
+      }
+    },
+  );
 }
 
 export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -42,8 +71,16 @@ export const ownerSteps: IntegrationStep<IntegrationConfig>[] = [
     id: IntegrationSteps.OWNERS,
     name: 'Fetch Owners',
     entities: [Entities.USER],
-    relationships: [Relationships.USER_ASSIGNED_ROLE],
-    dependsOn: [IntegrationSteps.ROLES],
+    relationships: [Relationships.ACCOUNT_HAS_USER],
+    dependsOn: [IntegrationSteps.ACCOUNT],
     executionHandler: fetchOwners,
+  },
+  {
+    id: IntegrationSteps.OWNERS_ROLES,
+    name: 'Build Owners Roles',
+    entities: [],
+    relationships: [Relationships.USER_ASSIGNED_ROLE],
+    dependsOn: [IntegrationSteps.OWNERS, IntegrationSteps.ROLES],
+    executionHandler: buildOwnersRolesRelationships,
   },
 ];
