@@ -7,10 +7,18 @@ if (process.env.LOAD_ENV) {
     path: path.join(__dirname, '../.env'),
   });
 }
-const DEFAULT_CLIENT_ID = 'dummy-acme-client-id';
-const DEFAULT_CLIENT_SECRET = 'dummy-acme-client-secret';
+const DEFAULT_OAUTH_ACCESS_TOKEN = 'dummy-access_token';
+const DEFAULT_API_URL = 'https://api.hubapi.com';
+const DEFAULT_APP_ID = '123123';
+const DEFAULT_OAUTH_AUTHORIZED_SCOPES = 'scope-1,scope-2';
 
-export const integrationConfig: IntegrationConfig = {
-  clientId: process.env.CLIENT_ID || DEFAULT_CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET || DEFAULT_CLIENT_SECRET,
-};
+export function createIntegrationConfig(): IntegrationConfig {
+  return {
+    oauthAccessToken:
+      process.env.OAUTH_ACCESS_TOKEN || DEFAULT_OAUTH_ACCESS_TOKEN,
+    apiBaseUrl: process.env.API_BASE_URL || DEFAULT_API_URL,
+    appId: process.env.APP_ID || DEFAULT_APP_ID,
+    oauthAuthorizedScopes:
+      process.env.OAUTH_AUTHORIZED_SCOPES || DEFAULT_OAUTH_AUTHORIZED_SCOPES,
+  };
+}

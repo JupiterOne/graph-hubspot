@@ -31,6 +31,12 @@
   "devDependencies": {
     "@jupiterone/integration-sdk-core": "^6.0.0",
     "@jupiterone/integration-sdk-dev-tools": "^6.0.0",
-    "@jupiterone/integration-sdk-testing": "^6.0.0"
+    "@jupiterone/integration-sdk-testing": "^6.0.0",
+    "@types/node-fetch": "^2.5.10"
+  },
+  "dependencies": {
+    "@hubspot/api-client": "^4.0.0",
+    "node-fetch": "^2.6.1",
+    "qs": "^6.10.1"
   }
 }

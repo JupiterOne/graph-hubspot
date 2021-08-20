@@ -25,10 +25,11 @@ with JupiterOne in the [integration documentation](docs/jupiterone.md).
    development or on-prem), values for these parameters are read from Node's
    `process.env` by converting config field names to constant case. For example,
    `clientId` is read from `process.env.CLIENT_ID`.
-   
+
    The `.env` file is loaded into `process.env` before the integration code is
    executed. This file is not required should you configure the environment
-   another way. `.gitignore` is configured to to avoid commiting the `.env` file.
+   another way. `.gitignore` is configured to to avoid commiting the `.env`
+   file.
 
 ### Running the integration
 

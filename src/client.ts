@@ -1,149 +1,127 @@
-import http from 'http';
-
-import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
-
+import {
+  ExecutionHistory,
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthenticationError,
+} from '@jupiterone/integration-sdk-core';
+import * as hubspot from '@hubspot/api-client';
 import { IntegrationConfig } from './config';
+import { Company, ResourceIteratee, Role, User } from './types';
 
-export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
-
-// Providers often supply types with their API libraries.
-
-type AcmeUser = {
-  id: string;
-  name: string;
-};
-
-type AcmeGroup = {
-  id: string;
-  name: string;
-  users?: Pick<AcmeUser, 'id'>[];
-};
-
-// Those can be useful to a degree, but often they're just full of optional
-// values. Understanding the response data may be more reliably accomplished by
-// reviewing the API response recordings produced by testing the wrapper client
-// (below). However, when there are no types provided, it is necessary to define
-// opaque types for each resource, to communicate the records that are expected
-// to come from an endpoint and are provided to iterating functions.
-
-/*
-import { Opaque } from 'type-fest';
-export type AcmeUser = Opaque<any, 'AcmeUser'>;
-export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
-*/
-
-/**
- * An APIClient maintains authentication state and provides an interface to
- * third party data APIs.
- *
- * It is recommended that integrations wrap provider data APIs to provide a
- * place to handle error responses and implement common patterns for iterating
- * resources.
- */
 export class APIClient {
-  constructor(readonly config: IntegrationConfig) {}
+  private readonly executionHistory: ExecutionHistory;
+  readonly hubspotClient: hubspot.Client;
+  private readonly maxPerPage = 30;
+
+  constructor(
+    readonly integrationConfig: IntegrationConfig,
+    executionHistory: ExecutionHistory,
+  ) {
+    this.executionHistory = executionHistory;
+    this.hubspotClient = new hubspot.Client({
+      accessToken: integrationConfig.oauthAccessToken,
+    });
+  }
+
+  async apiRequestWithErrorHandling<T>(path: string, body?: any): Promise<T[]> {
+    try {
+      const response = await this.hubspotClient.apiRequest({
+        method: 'GET',
+        path,
+        body,
+      });
+
+      return response.body.results;
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: new Error(err.message),
+        endpoint: path,
+        status: err.statusCode,
+        statusText: err.message,
+      });
+    }
+  }
 
   public async verifyAuthentication(): Promise<void> {
-    // TODO make the most light-weight request possible to validate
-    // authentication works with the provided credentials, throw an err if
-    // authentication fails
-    const request = new Promise<void>((resolve, reject) => {
-      http.get(
-        {
-          hostname: 'localhost',
-          port: 443,
-          path: '/api/v1/some/endpoint?limit=1',
-          agent: false,
-          timeout: 10,
-        },
-        (res) => {
-          if (res.statusCode !== 200) {
-            reject(new Error('Provider authentication failed'));
-          } else {
-            resolve();
-          }
-        },
-      );
-    });
-
     try {
-      await request;
+      const tokens = await this.hubspotClient.crm.owners.defaultApi.getPage();
+      if (!tokens.body) {
+        throw new Error('Provider authentication failed');
+      }
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: 'https://localhost/api/v1/some/endpoint?limit=1',
+        endpoint: '/crm/v3/owners',
         status: err.status,
         statusText: err.statusText,
       });
     }
   }
 
-  /**
-   * Iterates each user resource in the provider.
-   *
-   * @param iteratee receives each resource to produce entities/relationships
-   */
-  public async iterateUsers(
-    iteratee: ResourceIteratee<AcmeUser>,
-  ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
+  public async iterateRoles(iteratee: ResourceIteratee<Role>) {
+    const roles = await this.apiRequestWithErrorHandling<Role>(
+      '/settings/v3/users/roles',
+    );
 
-    const users: AcmeUser[] = [
-      {
-        id: 'acme-user-1',
-        name: 'User One',
-      },
-      {
-        id: 'acme-user-2',
-        name: 'User Two',
-      },
-    ];
+    for (const role of roles || []) {
+      await iteratee(role);
+    }
+  }
 
-    for (const user of users) {
+  public async iterateUsers(iteratee: ResourceIteratee<User>) {
+    const users = await this.apiRequestWithErrorHandling<User>(
+      '/settings/v3/users/',
+    );
+
+    for (const user of users || []) {
       await iteratee(user);
     }
   }
 
-  /**
-   * Iterates each group resource in the provider.
-   *
-   * @param iteratee receives each resource to produce entities/relationships
-   */
-  public async iterateGroups(
-    iteratee: ResourceIteratee<AcmeGroup>,
-  ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
-
-    const groups: AcmeGroup[] = [
+  public async iterateCompanies(iteratee: ResourceIteratee<Company>) {
+    const companies = await this.apiRequestWithErrorHandling<Company>(
+      '/companies/v2/companies/recent/modified',
       {
-        id: 'acme-group-1',
-        name: 'Group One',
-        users: [
-          {
-            id: 'acme-user-1',
-          },
-        ],
+        since: this.executionHistory.lastSuccessful?.startedOn || 0,
+        count: this.maxPerPage,
       },
-    ];
+    );
 
-    for (const group of groups) {
-      await iteratee(group);
+    for (const company of companies || []) {
+      await iteratee(company);
+    }
+  }
+
+  public async fetchUser(userId: string): Promise<User> {
+    try {
+      const res = await this.hubspotClient.apiRequest({
+        method: 'GET',
+        path: `/settings/v3/users/${userId}`,
+      });
+
+      return res.body;
+    } catch (err) {
+      throw new IntegrationProviderAPIError({
+        cause: new Error(err.message),
+        endpoint: `/settings/v3/users/${userId}`,
+        status: err.statusCode,
+        statusText: err.message,
+      });
+    }
+  }
+
+  public async iterateOwners(
+    iteratee: ResourceIteratee<hubspot.ownersModels.PublicOwner>,
+  ) {
+    const res = await this.hubspotClient.crm.owners.defaultApi.getPage();
+    for (const owner of res.body.results) {
+      await iteratee(owner);
     }
   }
 }
 
-export function createAPIClient(config: IntegrationConfig): APIClient {
-  return new APIClient(config);
+export function createAPIClient(
+  config: IntegrationConfig,
+  executionHistory: ExecutionHistory,
+): APIClient {
+  return new APIClient(config, executionHistory);
 }
