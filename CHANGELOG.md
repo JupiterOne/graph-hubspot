@@ -10,6 +10,12 @@ and this project adheres to
 
 ## [1.0.0] - 2022-05-20
 
+### Fixed
+
+- Updated to fix errors with NPM package creation and publish.
+
+## [1.0.0] - 2022-05-20
+
 ### Added
 
 Initial release. Ingesting the following items:
