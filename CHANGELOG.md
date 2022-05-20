@@ -13,6 +13,7 @@ and this project adheres to
 ### Fixed
 
 - Updated to fix errors with NPM package creation and publish.
+- Added missing questions file.
 
 ## [1.0.0] - 2022-05-20
 
