@@ -1,5 +1,5 @@
 ---
-sourceId: managed:template
+sourceId: managed:hubspot
 integrationDefinitionId: '${integration_definition_id}'
 questions: []
   # - id: integration-question-template-replace-me
