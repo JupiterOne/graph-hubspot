@@ -20,12 +20,12 @@ const db = new Database();
 appRouter.get('/redirect', ({ response }) => {
   response.redirect(
     OAUTH_APP_INSTALL_BASE_URL +
-    `?client_id=${encodeURIComponent(OAUTH_CLIENT_ID)}` + // app's client ID
-    `&scope=${encodeURIComponent(
-      OAUTH_SCOPES.split(',')
-        .map((it) => it.trim())
-        .join(' '),
-    )}` + // scopes being requested by the app
+      `?client_id=${encodeURIComponent(OAUTH_CLIENT_ID)}` + // app's client ID
+      `&scope=${encodeURIComponent(
+        OAUTH_SCOPES.split(',')
+          .map((it) => it.trim())
+          .join(' '),
+      )}` + // scopes being requested by the app
       `&redirect_uri=${encodeURIComponent(Hubspot.REDIRECT_URI)}`, // must match what's defined in the app settings
   );
 });

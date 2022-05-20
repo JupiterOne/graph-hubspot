@@ -1,12 +1,8 @@
 const fetch = require('node-fetch');
 const qs = require('qs');
 
-const {
-  SERVER_PORT,
-  OAUTH_CLIENT_ID,
-  OAUTH_CLIENT_SECRET,
-  HUBSPOT_API_URL,
-} = require('dotenv').config().parsed;
+const { SERVER_PORT, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, HUBSPOT_API_URL } =
+  require('dotenv').config().parsed;
 
 const PATH = '/oauth-callback';
 const REDIRECT_URI = `http://localhost:${SERVER_PORT}${PATH}`;
