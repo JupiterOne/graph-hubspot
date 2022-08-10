@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.0.2] - 2022-08-10
+
+### Fixed
+
+- Updated scopes to replace `contacts` scope.
+
 ## [1.0.1] - 2022-05-20
 
 ### Fixed
