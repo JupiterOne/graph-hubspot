@@ -21,18 +21,22 @@
 - Hubspot supports both OAuth and API keys. But for this integration, we only
   support OAuth.
 - To create an OAuth account, you need to have a developer account. You can see
-  Hubspot's [OAuth Quickstart Guide](https://developers.hubspot.com/docs/api/oauth-quickstart-guide) for reference.
+  Hubspot's
+  [OAuth Quickstart Guide](https://developers.hubspot.com/docs/api/oauth-quickstart-guide)
+  for reference.
 - You must have permission in JupiterOne to install new integrations.
 
 ## Support
 
-If you need help with this integration, contact [JupiterOne Support](https://support.jupiterone.io).
+If you need help with this integration, contact
+[JupiterOne Support](https://support.jupiterone.io).
 
 ## Integration Walkthrough
 
 ### In Hubspot
 
-Taken from [OAuth Quickstart Guide](https://developers.hubspot.com/docs/api/oauth-quickstart-guide):
+Taken from
+[OAuth Quickstart Guide](https://developers.hubspot.com/docs/api/oauth-quickstart-guide):
 
 Before you can start using OAuth with HubSpot, you'll need to have:
 
