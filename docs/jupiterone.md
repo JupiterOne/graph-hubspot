@@ -1,4 +1,4 @@
-# Integration with JupiterOne
+# Hubspot
 
 ## Hubspot + JupiterOne Integration Benefits
 
@@ -21,14 +21,14 @@
 - Hubspot supports both OAuth and API keys. But for this integration, we only
   support OAuth.
 - To create an OAuth account, you need to have a developer account. You can see
-  hubspot's
+  Hubspot's
   [OAuth Quickstart Guide](https://developers.hubspot.com/docs/api/oauth-quickstart-guide)
   for reference.
 - You must have permission in JupiterOne to install new integrations.
 
 ## Support
 
-If you need help with this integration, please contact
+If you need help with this integration, contact
 [JupiterOne Support](https://support.jupiterone.io).
 
 ## Integration Walkthrough
@@ -57,7 +57,7 @@ On `./oauth-server`
 
 On `graph-hubspot`
 
-1. From the configuration **Gear Icon**, select **Integrations**.
+1. From the top navigation of the J1 Search homepage, select **Integrations**.
 2. Scroll to the **Hubspot** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
@@ -74,7 +74,7 @@ On `graph-hubspot`
 
 # How to Uninstall
 
-1. From the configuration **Gear Icon**, select **Integrations**.
+1. From the top navigation of the J1 Search homepage, select **Integrations**.
 2. Scroll to the **Hubspot** integration tile and click it.
 3. Identify and click the **integration to delete**.
 4. Click the **trash can** icon.
