@@ -1,4 +1,4 @@
-import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners/api';
+import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners';
 import {
   createIntegrationEntity,
   parseTimePropertyValue,

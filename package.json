@@ -38,7 +38,7 @@
     "@types/node-fetch": "^2.5.10"
   },
   "dependencies": {
-    "@hubspot/api-client": "^4.0.0",
+    "@hubspot/api-client": "^8.5.0",
     "node-fetch": "^2.6.7",
     "qs": "^6.10.1"
   }

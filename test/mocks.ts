@@ -1,4 +1,4 @@
-import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners/api';
+import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners';
 import { Company, Role, User } from '../src/types';
 
 export function getMockOwner(partial?: Partial<PublicOwner>): PublicOwner {

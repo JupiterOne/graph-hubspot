@@ -9,7 +9,7 @@ if (process.env.LOAD_ENV) {
 }
 const DEFAULT_OAUTH_ACCESS_TOKEN = 'dummy-access_token';
 const DEFAULT_API_URL = 'https://api.hubapi.com';
-const DEFAULT_APP_ID = '123123';
+const DEFAULT_APP_ID = '1401879';
 const DEFAULT_OAUTH_AUTHORIZED_SCOPES = 'scope-1,scope-2';
 
 export function createIntegrationConfig(): IntegrationConfig {
