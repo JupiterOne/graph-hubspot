@@ -1,3 +1,13 @@
+import { Client } from '@hubspot/api-client';
+
+type Awaited<T> = T extends Promise<infer ReturnType> ? ReturnType : T;
+
+export type OwnersResponse = Awaited<
+  ReturnType<Client['crm']['owners']['ownersApi']['getPage']>
+>;
+
+export type Owner = OwnersResponse['results'][number];
+
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
 export interface HubspotPaginatedResponse<T> {
@@ -58,12 +68,20 @@ export interface CompanyProperties {
   [key: string]: any;
 }
 
+export type UsersResponse = Awaited<
+  ReturnType<Client['settings']['users']['usersApi']['getPage']>
+>;
+
 export interface User {
   id: string;
   email: string;
   roleId?: string;
   primaryTeamId?: string;
 }
+
+export type RolesResponse = Awaited<
+  ReturnType<Client['settings']['users']['rolesApi']['getAll']>
+>;
 
 export interface Role {
   id: string;

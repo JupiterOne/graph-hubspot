@@ -4,23 +4,19 @@ import {
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 import * as hubspot from '@hubspot/api-client';
-import {
-  PublicOwner,
-  CollectionResponsePublicOwnerForwardPaging,
-} from '@hubspot/api-client/lib/codegen/crm/owners';
-import {
-  CollectionResponsePublicUserForwardPaging,
-  CollectionResponsePublicPermissionSetNoPaging,
-} from '@hubspot/api-client/lib/codegen/settings/users';
 import { IntegrationConfig } from './config';
 import {
   Company,
-  ResourceIteratee,
-  Role,
-  User,
+  HubspotHttpError,
   HubspotPaginatedResponse,
   LegacyHubspotPaginatedResponse,
-  HubspotHttpError,
+  Owner,
+  OwnersResponse,
+  ResourceIteratee,
+  Role,
+  RolesResponse,
+  User,
+  UsersResponse,
 } from './types';
 import { legacyPaginated, paginated } from './utils';
 
@@ -87,7 +83,7 @@ export class APIClient {
   }
 
   public async iterateRoles(iteratee: ResourceIteratee<Role>) {
-    let response: CollectionResponsePublicPermissionSetNoPaging;
+    let response: RolesResponse;
     try {
       response = await this.hubspotClient.settings.users.rolesApi.getAll();
     } catch (err) {
@@ -107,7 +103,7 @@ export class APIClient {
 
   public async iterateUsers(iteratee: ResourceIteratee<User>) {
     await paginated(async (after) => {
-      let response: CollectionResponsePublicUserForwardPaging;
+      let response: UsersResponse;
       try {
         response = await this.hubspotClient.settings.users.usersApi.getPage(
           this.maxPerPage,
@@ -133,7 +129,7 @@ export class APIClient {
 
   public async iterateCompanies(iteratee: ResourceIteratee<Company>) {
     await legacyPaginated(async (offset) => {
-      const { results: companies, ...pagerProperties } =
+      const { results: companies, ...pageProperties } =
         await this.getPageWithErrorHandling<Company>(
           '/companies/v2/companies/recent/modified',
           {
@@ -147,10 +143,10 @@ export class APIClient {
         await iteratee(company);
       }
 
-      return 'offset' in pagerProperties
+      return 'offset' in pageProperties
         ? {
-            offset: pagerProperties.offset,
-            hasMore: pagerProperties.hasMore || false,
+            offset: pageProperties.offset,
+            hasMore: pageProperties.hasMore || false,
           }
         : { offset: 0, hasMore: false };
     });
@@ -167,9 +163,9 @@ export class APIClient {
     }
   }
 
-  public async iterateOwners(iteratee: ResourceIteratee<PublicOwner>) {
+  public async iterateOwners(iteratee: ResourceIteratee<Owner>) {
     await paginated(async (after) => {
-      let response: CollectionResponsePublicOwnerForwardPaging;
+      let response: OwnersResponse;
       try {
         response = await this.hubspotClient.crm.owners.ownersApi.getPage(
           undefined,
@@ -191,7 +187,7 @@ export class APIClient {
 
 function buildApiError(err: HubspotHttpError, endpoint: string) {
   return new IntegrationProviderAPIError({
-    cause: new Error(err.message),
+    cause: err,
     endpoint,
     status: err.statusCode,
     statusText: err.message,

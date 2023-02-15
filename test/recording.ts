@@ -2,6 +2,7 @@ import {
   Recording,
   setupRecording,
   SetupRecordingInput,
+  mutations,
 } from '@jupiterone/integration-sdk-testing';
 
 export { Recording };
@@ -11,5 +12,6 @@ export function setupHubspotRecording(
 ): Recording {
   return setupRecording({
     ...input,
+    mutateEntry: mutations.unzipGzippedRecordingEntry,
   });
 }

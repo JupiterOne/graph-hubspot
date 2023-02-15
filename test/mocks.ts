@@ -1,7 +1,6 @@
-import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners';
-import { Company, Role, User } from '../src/types';
+import { Company, Role, User, Owner } from '../src/types';
 
-export function getMockOwner(partial?: Partial<PublicOwner>): PublicOwner {
+export function getMockOwner(partial?: Partial<Owner>): Owner {
   return {
     id: '84106262',
     email: 'user@example.com',

@@ -1,4 +1,4 @@
-import { PublicOwner } from '@hubspot/api-client/lib/codegen/crm/owners';
+import { Owner } from '../../types';
 import {
   createIntegrationEntity,
   parseTimePropertyValue,
@@ -6,7 +6,7 @@ import {
 import { getEntityKey } from '../../utils';
 import { Entities } from '../constants';
 
-export function createOwnerEntity(data: PublicOwner) {
+export function createOwnerEntity(data: Owner) {
   return createIntegrationEntity({
     entityData: {
       source: data,
