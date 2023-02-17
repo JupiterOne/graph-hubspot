@@ -32,7 +32,7 @@ it('auth error', async () => {
     instanceConfig: {
       oauthAccessToken: 'INVALID',
       apiBaseUrl: 'https://api.hubapi.com',
-      appId: '123123',
+      appId: '1401879',
       oauthAuthorizedScopes: 'scope-1,scope-2',
     } as IntegrationConfig,
   });

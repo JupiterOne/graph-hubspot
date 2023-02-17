@@ -9,9 +9,21 @@ import * as role from '../roles';
 import * as account from '../account';
 import { Relationships } from '../constants';
 import { setupHubspotRecording } from '../../../test/recording';
+import { APIClient, createAPIClient } from '../../client';
+
+jest.mock('../../client', () => {
+  const originalModule = jest.requireActual('../../client');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    createAPIClient: jest.fn(),
+  };
+});
 
 describe('#fetchOwners', () => {
   let recording: Recording;
+  const MOCK_LIMIT_PAGE = 2;
 
   beforeEach(() => {
     recording = setupHubspotRecording({
@@ -28,6 +40,14 @@ describe('#fetchOwners', () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: createIntegrationConfig(),
     });
+
+    (createAPIClient as jest.Mock).mockReturnValue(
+      new APIClient(
+        context.instance.config,
+        context.executionHistory,
+        MOCK_LIMIT_PAGE,
+      ),
+    );
 
     await account.fetchAccount(context);
     await owner.fetchOwners(context);

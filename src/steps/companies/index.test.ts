@@ -7,9 +7,21 @@ import { createIntegrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
 import { Entities } from '../constants';
 import { setupHubspotRecording } from '../../../test/recording';
+import { APIClient, createAPIClient } from '../../client';
+
+jest.mock('../../client', () => {
+  const originalModule = jest.requireActual('../../client');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    createAPIClient: jest.fn(),
+  };
+});
 
 describe('#fetchCompanies', () => {
   let recording: Recording;
+  const MOCK_LIMIT_PAGE = 2;
 
   beforeEach(() => {
     recording = setupHubspotRecording({
@@ -26,6 +38,14 @@ describe('#fetchCompanies', () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: createIntegrationConfig(),
     });
+
+    (createAPIClient as jest.Mock).mockReturnValue(
+      new APIClient(
+        context.instance.config,
+        context.executionHistory,
+        MOCK_LIMIT_PAGE,
+      ),
+    );
 
     await company.fetchCompanies(context);
 

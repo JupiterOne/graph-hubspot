@@ -29,16 +29,16 @@
     "prepush": "yarn format:check && yarn lint && yarn type-check && jest --changedSince main"
   },
   "peerDependencies": {
-    "@jupiterone/integration-sdk-core": "^8.13.8"
+    "@jupiterone/integration-sdk-core": "^8.30.3"
   },
   "devDependencies": {
-    "@jupiterone/integration-sdk-core": "^8.13.8",
-    "@jupiterone/integration-sdk-dev-tools": "^8.13.8",
-    "@jupiterone/integration-sdk-testing": "^8.13.8",
+    "@jupiterone/integration-sdk-core": "^8.30.3",
+    "@jupiterone/integration-sdk-dev-tools": "^8.30.3",
+    "@jupiterone/integration-sdk-testing": "^8.30.3",
     "@types/node-fetch": "^2.5.10"
   },
   "dependencies": {
-    "@hubspot/api-client": "^4.0.0",
+    "@hubspot/api-client": "^8.5.0",
     "node-fetch": "^2.6.7",
     "qs": "^6.10.1"
   }

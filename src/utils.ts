@@ -16,3 +16,26 @@ export function isSuperset(set, subset) {
   }
   return true;
 }
+
+export async function paginated(
+  callback: (after?: string) => Promise<string | undefined>,
+) {
+  let after: string | undefined = undefined;
+
+  do {
+    after = await callback(after);
+  } while (after);
+}
+
+export async function legacyPaginated(
+  callback: (offset: number) => Promise<{ offset: number; hasMore: boolean }>,
+) {
+  let offset = 0;
+  let hasMore = false;
+
+  do {
+    const pagerProperties = await callback(offset);
+    offset = pagerProperties.offset;
+    hasMore = pagerProperties.hasMore;
+  } while (hasMore);
+}
