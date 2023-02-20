@@ -26,16 +26,3 @@ export async function paginated(
     after = await callback(after);
   } while (after);
 }
-
-export async function legacyPaginated(
-  callback: (offset: number) => Promise<{ offset: number; hasMore: boolean }>,
-) {
-  let offset = 0;
-  let hasMore = false;
-
-  do {
-    const pagerProperties = await callback(offset);
-    offset = pagerProperties.offset;
-    hasMore = pagerProperties.hasMore;
-  } while (hasMore);
-}

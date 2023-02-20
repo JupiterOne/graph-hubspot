@@ -16,9 +16,10 @@ import {
   Role,
   RolesResponse,
   User,
-  UsersResponse,
 } from './types';
-import { legacyPaginated, paginated } from './utils';
+import { paginated } from './utils';
+
+const MAX_RETRIES = 5;
 
 export class APIClient {
   private readonly executionHistory: ExecutionHistory;
@@ -33,6 +34,7 @@ export class APIClient {
     this.executionHistory = executionHistory;
     this.hubspotClient = new hubspot.Client({
       accessToken: integrationConfig.oauthAccessToken,
+      numberOfApiCallRetries: MAX_RETRIES,
     });
     this.maxPerPage = maxPerPage;
   }
@@ -101,55 +103,18 @@ export class APIClient {
     }
   }
 
-  public async iterateUsers(iteratee: ResourceIteratee<User>) {
-    await paginated(async (after) => {
-      let response: UsersResponse;
-      try {
-        response = await this.hubspotClient.settings.users.usersApi.getPage(
-          this.maxPerPage,
-          after,
-        );
-      } catch (err) {
-        throw buildApiError(err, '/settings/v3/users/');
-      }
-
-      const { results: users, paging } = response;
-      for (const user of users || []) {
-        const { id, email, roleId, primaryTeamId } = user;
-        await iteratee({
-          id,
-          email,
-          ...(roleId && { roleId }),
-          ...(primaryTeamId && { primaryTeamId }),
-        });
-      }
-      return paging?.next?.after;
-    });
-  }
-
   public async iterateCompanies(iteratee: ResourceIteratee<Company>) {
-    await legacyPaginated(async (offset) => {
-      const { results: companies, ...pageProperties } =
-        await this.getPageWithErrorHandling<Company>(
-          '/companies/v2/companies/recent/modified',
-          {
-            since: this.executionHistory.lastSuccessful?.startedOn || 0,
-            count: this.maxPerPage,
-            offset,
-          },
-        );
+    const { results: companies } = await this.getPageWithErrorHandling<Company>(
+      '/companies/v2/companies/recent/modified',
+      {
+        since: this.executionHistory.lastSuccessful?.startedOn || 0,
+        count: this.maxPerPage,
+      },
+    );
 
-      for (const company of companies || []) {
-        await iteratee(company);
-      }
-
-      return 'offset' in pageProperties
-        ? {
-            offset: pageProperties.offset,
-            hasMore: pageProperties.hasMore || false,
-          }
-        : { offset: 0, hasMore: false };
-    });
+    for (const company of companies || []) {
+      await iteratee(company);
+    }
   }
 
   public async fetchUser(userId: string): Promise<User> {
