@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.0.3] - 2023-02-20
+
+### Fixed
+
+- Consume all user records using pagination.
+
 ## [1.0.2] - 2022-08-10
 
 ### Fixed
