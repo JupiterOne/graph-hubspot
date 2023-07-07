@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.0.4] - 2023-07-07
+
+### Fixed
+
+- Validate userId from owner entity when creating a `Owner -> ASSIGNED -> Role`
+  relationship.
+
 ## [1.0.3] - 2023-02-20
 
 ### Fixed
