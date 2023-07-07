@@ -117,10 +117,10 @@ export class APIClient {
     }
   }
 
-  public async fetchUser(userId: string): Promise<User> {
+  public async fetchUser(userId: number): Promise<User> {
     try {
       const user = await this.hubspotClient.settings.users.usersApi.getById(
-        userId,
+        `${userId}`,
       );
       return user;
     } catch (err) {

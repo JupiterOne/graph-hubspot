@@ -46,8 +46,11 @@ export async function buildOwnersRolesRelationships({
   await jobState.iterateEntities(
     { _type: Entities.USER._type },
     async (ownerEntity) => {
+      if (!ownerEntity.userId) {
+        return;
+      }
       const { roleId } = await apiClient.fetchUser(
-        ownerEntity.userId as string,
+        ownerEntity.userId as number,
       );
       const roleEntity = roleId
         ? await jobState.findEntity(getEntityKey(Entities.ROLE, roleId))
