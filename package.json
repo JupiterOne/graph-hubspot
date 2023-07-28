@@ -42,28 +42,11 @@
     "@jupiterone/integration-sdk-core": "^9.8.1",
     "@jupiterone/integration-sdk-dev-tools": "^9.8.1",
     "@jupiterone/integration-sdk-testing": "^9.8.1",
-    "@types/node-fetch": "^2.5.10",
-    "auto": "^10.36.5"
+    "@types/node-fetch": "^2.5.10"
   },
   "dependencies": {
     "@hubspot/api-client": "^8.5.0",
     "node-fetch": "^2.6.7",
     "qs": "^6.10.1"
-  },
-  "auto": {
-    "plugins": [
-      [
-        "npm",
-        {
-          "setRcToken": false,
-          "publishFolder": "./dist"
-        }
-      ],
-      "released"
-    ],
-    "onlyPublishWithReleaseLabel": true,
-    "shipit": {
-      "prerelease": false
-    }
   }
 }
