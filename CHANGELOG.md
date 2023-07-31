@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-07-31
+
+### Changed
+
+- Upgrade integration to node 18 and sdk version.
+
 ## [1.0.4] - 2023-07-07
 
 ### Fixed
