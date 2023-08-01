@@ -10,6 +10,12 @@ and this project adheres to
 
 ## [1.1.0] - 2023-07-31
 
+### Fixed
+
+- Fix node-version in build workflow
+
+## [1.1.0] - 2023-07-31
+
 ### Changed
 
 - Upgrade integration to node 18 and sdk version.
